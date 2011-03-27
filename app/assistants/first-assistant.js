@@ -18,7 +18,7 @@ FirstAssistant.prototype.setup = function() {
 		  cssName: "blackNglossy"
 		}
 	});
-	me.calc = new r.apps.calc();
+	me.calc = new calc.ulator();
 	
 	var els = me.ui.elements;
 	
@@ -41,7 +41,7 @@ FirstAssistant.prototype.setup = function() {
 			els.currValDiv.innerHTML = memData.calcState.currentValueHTML;
 			me.calc.currentValue = memData.calcState.currentValue || [];
 			me.calc.previousValues = memData.calcState.previousValues || [];
-			me.calc.currentOperation = r.apps.calc.operations[memData.calcState.currentOperation];
+			me.calc.currentOperation = calc.ulator.operations[memData.calcState.currentOperation];
 			me.calc.pendingValue = memData.calcState.pendingValue;
 			me.calc.containsDecimal = memData.calcState.containsDecimal;
 			me.calc.decimalPlaces = memData.calcState.decimalPlaces;
@@ -79,7 +79,7 @@ FirstAssistant.prototype.setup = function() {
 					els.memDiv.hide();
 					me.calc.currentValue = [];
 					me.calc.previousValues = [];
-					me.calc.currentOperation = r.apps.calc.operations.none;
+					me.calc.currentOperation = calc.ulator.operations.none;
 					me.calc.pendingValue = null;
 					me.calc.containsDecimal = false;
 					me.calc.decimalPlaces = 0;
@@ -234,7 +234,7 @@ FirstAssistant.prototype.setup = function() {
 					cookie.put(memData);
 				}
 				if (me.calc.newline) {
-					if (me.calc.currentOperation !== r.apps.calc.operations.none) {
+					if (me.calc.currentOperation !== calc.ulator.operations.none) {
 						if (me.calc.repeatValue) {
 							els.currValDiv.innerHTML = me.calc.getPreviousValue();
 							me.calc.repeatValue = false;
@@ -242,7 +242,7 @@ FirstAssistant.prototype.setup = function() {
 						els.currValDiv.innerHTML += "<span class='currentOperation'> " + me.calc.currentOperation.symbol + "</span>";
 					}
 					els.previousValuesDiv.innerHTML += "<div>" + els.currValDiv.innerHTML + "</div>";
-					if (me.calc.currentOperation === r.apps.calc.operations.equals) {
+					if (me.calc.currentOperation === calc.ulator.operations.equals) {
 						els.previousValuesDiv.innerHTML += "<div class='equalsDivider'></div>";
 						els.previousValuesDiv.innerHTML += "<div class='setTotal'>" + me.calc.getPreviousValue() + "&nbsp;&nbsp;</div>";
 					}
