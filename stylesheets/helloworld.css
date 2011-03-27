@@ -1,0 +1,85 @@
+.scrollerContainer {
+	border-color: #94BFE6 !important;
+}
+.scrollingArea {
+	float: right;
+	width: 270px;
+}
+.scrollingArea div {
+	text-align: right;
+	width: 270px;
+	font-family: "Courier New", Courier, monospace;
+}
+.scrollingArea div div {
+	text-align: right;
+	width: 270px;
+}
+.currentOperation {
+	color: red;
+}
+.setTotal {
+	color: green;
+	padding-bottom: 15px;
+}
+.equalsDivider {
+	width: 250px;
+	border: solid 1px black;
+	display: block;
+	height: 1px;
+	background-color: black;
+}
+.completedSet {
+	position: relative;
+	width: 250px !important;
+	display: block;
+	border-bottom: dashed 1px green;
+}
+.palm-button {
+	margin: 0px !important;
+}
+.palm-group {
+	margin-bottom: 2px !important;
+}
+.memDiv {
+	position: absolute;
+	left: 20px;
+	top: 0px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: red;
+	z-index: 10;
+}
+.memDiv span {
+	font-size: 12px;
+	color: green;
+}
+.icon {
+	padding-left: 10px;
+	padding-top: 5px;
+}
+.expander {
+	position: absolute;
+	left: 8px;
+	top: 129px;
+	width: 34px;
+	height: 30px;
+	background-image: url(../images/down-arrow.png);
+}
+.pixi .expander {
+	top: 39px;
+}
+.clearAll {
+	position: absolute;
+	left: 44px;
+	top: 129px;
+	width: 34px;
+	height: 30px;
+	background-image: url(../images/x-button.png);
+}
+.pixi .clearAll {
+	top: 39px;
+}
+.expanded {
+	background-image: url(../images/up-arrow.png) !important;
+}

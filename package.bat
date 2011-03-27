@@ -1,0 +1,1 @@
+palm-package -o "C:\Users\Ryan\workspacePalmPre\r.apps\HelloWorld\packages" --exclude="packages" "C:\Users\Ryan\workspacePalmPre\r.apps\HelloWorld

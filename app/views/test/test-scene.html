@@ -1,0 +1,88 @@
+<div id="main" class="calc blackNglossy">
+	<div id="scrollerContainer" class="scrollerContainer skinnable">
+		<!--<div id="memDiv" class="memDiv">M<span id="memValDiv"></span></div>
+		<div id="displayArea" x-mojo-element="Scroller" style="width: 270px; height: 125px;">
+			<div id="scrolling_contents" class="scrollingArea">
+				<div id="previousValuesDiv"></div>
+				<div id="currentValueDiv">0</div>
+			</div>
+		</div>
+		<div id="expander" class="expander"></div>
+		<div id="clearAllBtn" class="clearAll"></div>-->
+	</div>
+	<div id="buttonsContainer" class="buttonsContainer">
+		<div class="rowSpacer rowSpacer1 skinnable"></div>
+		<div class="buttonRow row1">
+			<div id="percentBtn" class="calc-button percentBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="sqrtBtn" class="calc-button sqrtBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="negativeBtn" class="calc-button negativeBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="divisionBtn" class="calc-button divisionBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="mPlusBtn" class="calc-button mPlusBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+		</div>
+		<div class="buttonRow row2">
+			<div id="num7Btn" class="calc-button num7Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num8Btn" class="calc-button num8Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num9Btn" class="calc-button num9Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="multiplicationBtn" class="calc-button multiplicationBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="mMinusBtn" class="calc-button mMinusBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+		</div>
+		<div class="buttonRow row3">
+			<div id="num4Btn" class="calc-button num4Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num5Btn" class="calc-button num5Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num6Btn" class="calc-button num6Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="subtractionBtn" class="calc-button subtractionBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="mrBtn" class="calc-button mrBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+		</div>
+		<div class="buttonRow row4">
+			<div id="num1Btn" class="calc-button num1Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num2Btn" class="calc-button num2Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num3Btn" class="calc-button num3Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="additionBtn" class="calc-button additionBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="mcBtn" class="calc-button mcBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+		</div>
+		<div class="buttonRow row5">
+			<div id="cBtn" class="calc-button cBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="num0Btn" class="calc-button num0Btn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="decimalBtn" class="calc-button decimalBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="equalsBtn" class="calc-button equalsBtn skinnable" x-mojo-touch-feedback="immediate"></div>
+			<div id="iconBtn" class="calc-button iconButton skinnable"></div>
+		</div>
+	</div>
+    <!--<table width="100%" id="buttonsTbl" class="buttonsArea">
+		<tr>
+			<td width="20%"><div id="percentBtn" class="calc-button precentBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="sqrtBtn" class="calc-button sqrtBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="negativeBtn" class="calc-button negativeBtn" x-mojo-touch-feedback="immediate"></div><div></td>
+			<td width="20%"><div id="divisionBtn" class="calc-button divisionBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="mPlusBtn" class="calc-button mPlusBtn" x-mojo-touch-feedback="immediate"></div></td>
+		</tr>
+		<tr>
+			<td width="20%"><div id="num7Btn" class="calc-button num7Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num8Btn" class="calc-button num8Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num9Btn" class="calc-button num9Btn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="multiplicationBtn" class="calc-button multiplicationBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="mMinusBtn" class="calc-button mMinusBtn" x-mojo-touch-feedback="immediate"></div></td>
+		</tr>
+		<tr>
+			<td width="20%"><div id="num4Btn" class="calc-button num4Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num5Btn" class="calc-button num5Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num6Btn" class="calc-button num6Btn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="subtractionBtn" class="calc-button subtractionBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="mrBtn" class="calc-button mrBtn" x-mojo-touch-feedback="immediate"></div></td>
+		</tr>
+		<tr>
+			<td width="20%"><div id="num1Btn" class="calc-button num1Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num2Btn" class="calc-button num2Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num3Btn" class="calc-button num3Btn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="additionBtn" class="calc-button additionBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="mcBtn" class="calc-button mcBtn" x-mojo-touch-feedback="immediate"><div></td>
+		</tr>
+		<tr>
+			<td width="20%"><div id="cBtn" class="calc-button cBtn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="num0Btn" class="calc-button num0Btn" x-mojo-touch-feedback="immediate"></div></td>
+			<td width="20%"><div id="decimalBtn" class="calc-button decimalBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="equalsBtn" class="calc-button equalsBtn" x-mojo-touch-feedback="immediate"><div></td>
+			<td width="20%"><div id="iconBtn" class="icon-button"><div></td>
+		</tr>
+	</table>-->
+</div>

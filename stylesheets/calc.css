@@ -1,0 +1,473 @@
+/* GENERAL ----------------------------------------------------------------*/
+.calc {
+	width: 100%;
+	height: 480px;
+}
+.pixi {
+	height: 400px !important;
+}
+.scrollerContainer {
+	border: 1px solid black;
+	width: 100%;
+}
+.displayArea {
+	width: 100%;
+	margin-top: 25px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: 40px;
+}
+.expanded .displayArea {
+	height: 403px !important;
+}
+.scrollingArea {
+	float: right;
+	/*width: 270px;*/
+	width: 100%;
+}
+.scrollingArea div {
+	text-align: right;
+	width: 270px;
+	/*width: 100%;*/
+	font-family: "Courier New", Courier, monospace;
+}
+.scrollingArea div div {
+	text-align: right;
+	width: 270px;
+}
+.currentOperation {
+	color: red;
+}
+.setTotal {
+	color: green;
+	padding-bottom: 15px;
+}
+.equalsDivider {
+	width: 250px;
+	border: solid 1px black;
+	display: block;
+	height: 1px;
+	background-color: black;
+}
+.completedSet {
+	position: relative;
+	width: 250px !important;
+	display: block;
+	border-bottom: dashed 1px green;
+}
+.palm-group {
+	margin-bottom: 2px !important;
+}
+.memDiv {
+	position: absolute;
+	left: 30px;
+	top: 10px;
+	font-weight: normal;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: red;
+	z-index: 10;
+}
+.memDiv span {
+	font-size: 12px;
+	color: green;
+}
+.icon-button {
+	padding-left: 10px;
+	padding-top: 5px;
+	width: 48px;
+	height: 48px;
+	background-image: url(../icon.png);
+}
+/*
+.pixi .expander {
+	top: 39px;
+}
+.pixi .clearAll {
+	top: 39px;
+}
+.expanded {
+	background-image: url(../images/up-arrow.png) !important;
+}*/
+
+/* SKINS ----------------------------------------------------------------------------------*/
+.skinnable {
+	background-repeat: no-repeat;
+}
+.blackNglossy .skinnable {
+	background-image: url(../images/skins/black-carbon/black_carbon_off.png);
+}
+.paratroopers .skinnable {
+	background-image: url(../images/skins/black-carbon/paratroopers/paratroopers_off.png);
+}
+.pre101 .skinnable {
+	background-image: url(../images/skins/black-carbon/pre101/pre101_off.png);
+}
+.radiohibiki .skinnable {
+	background-image: url(../images/skins/black-carbon/radio_hibiki/radio_hibiki_off.png);
+}
+.spaz .skinnable {
+	background-image: url(../images/skins/black-carbon/spaz/spaz_off.png);
+}
+.tiltgt .skinnable {
+	background-image: url(../images/skins/black-carbon/tiltgt/tiltgt_off.png);
+}
+.totallypalmed .skinnable {
+	background-image: url(../images/skins/black-carbon/totallypalmed/totallypalmed_off.png);
+}
+.webosinternals .skinnable {
+	background-image: url(../images/skins/black-carbon/webosinternals/webos-internals_off.png);
+}
+.webosroundup .skinnable {
+	background-image: url(../images/skins/black-carbon/webosroundup/webosroundup_off.png);
+}
+.zombieinvasion .skinnable {
+	background-image: url(../images/skins/black-carbon/zombie_invasion/zombie_off.png);
+}
+/* TOUCHED --------------------------------------------------------------------------------------------*/
+.blackNglossy .touched {
+	background-image: url(../images/skins/black-carbon/black_carbon_on.png) !important;
+}
+.paratroopers .touched {
+	background-image: url(../images/skins/black-carbon/paratroopers/paratroopers_on.png);
+}
+.pre101 .touched {
+	background-image: url(../images/skins/black-carbon/pre101/pre101_on.png);
+}
+.radiohibiki .touched {
+	background-image: url(../images/skins/black-carbon/radio_hibiki/radio_hibiki_on.png);
+}
+.spaz .touched {
+	background-image: url(../images/skins/black-carbon/spaz/spaz_on.png);
+}
+.tiltgt .touched {
+	background-image: url(../images/skins/black-carbon/tiltgt/tiltgt_on.png);
+}
+.totallypalmed .touched {
+	background-image: url(../images/skins/black-carbon/totallypalmed/totallypalmed_on.png);
+}
+.webosinternals .touched {
+	background-image: url(../images/skins/black-carbon/webosinternals/webos-internals_on.png);
+}
+.webosroundup .touched {
+	background-image: url(../images/skins/black-carbon/webosroundup/webosroundup_on.png);
+}
+.zombieinvasion .touched {
+	background-image: url(../images/skins/black-carbon/zombie_invasion/zombie_on.png);
+}
+/* EXPANDED ----------------------------------------------------------------------------------------------*/
+.blackNglossyExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/black_carbon_full_display_off.png) !important;
+}
+.paratroopersExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/paratroopers/paratroopers_full_display_off.png) !important;
+}
+.pre101Expanded .skinnable {
+	background-image: url(../images/skins/black-carbon/pre101/pre101_full_display_off.png);
+}
+.radiohibikiExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/radio_hibiki/radio_hibiki_full_display_off.png);
+}
+.spazExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/spaz/spaz_full_display_off.png);
+}
+.tiltgtExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/tiltgt/tiltgt_full_display_off.png);
+}
+.totallypalmedExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/totallypalmed/totallypalmed_full_display_off.png);
+}
+.webosinternalsExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/webosinternals/webos-internals_full_display_off.png);
+}
+.webosroundupExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/webosroundup/webosroundup_full_display_off.png);
+}
+.zombieinvasionExpanded .skinnable {
+	background-image: url(../images/skins/black-carbon/zombie_invasion/zombie_full_display_off.png);
+}
+/* EXPANDED TOUCHED --------------------------------------------------------------------------------------*/
+.blackNglossyExpanded .touched {
+	background-image: url(../images/skins/black-carbon/black_carbon_full_display_on.png) !important;
+}
+.paratroopersExpanded .touched {
+	background-image: url(../images/skins/black-carbon/paratroopers/paratroopers_full_display_on.png) !important;
+}
+.pre101Expanded .touched {
+	background-image: url(../images/skins/black-carbon/pre101/pre101_full_display_on.png);
+}
+.radiohibikiExpanded .touched {
+	background-image: url(../images/skins/black-carbon/radio_hibiki/radio_hibiki_full_display_on.png);
+}
+.spazExpanded .touched {
+	background-image: url(../images/skins/black-carbon/spaz/spaz_full_display_on.png);
+}
+.tiltgtExpanded .touched {
+	background-image: url(../images/skins/black-carbon/tiltgt/tiltgt_full_display_on.png);
+}
+.totallypalmedExpanded .touched {
+	background-image: url(../images/skins/black-carbon/totallypalmed/totallypalmed_full_display_on.png);
+}
+.webosinternalsExpanded .touched {
+	background-image: url(../images/skins/black-carbon/webosinternals/webos-internals_full_display_on.png);
+}
+.webosroundupExpanded .touched {
+	background-image: url(../images/skins/black-carbon/webosroundup/webosroundup_full_display_on.png);
+}
+.zombieinvasionExpanded .touched {
+	background-image: url(../images/skins/black-carbon/zombie_invasion/zombie_full_display_on.png);
+}
+.scrollerContainer {
+	width: 100%;
+	height: 170px;
+	background-position: 0px -27px;
+	border-bottom: none !important;
+	border-left: none !important;
+	border-right: none !important;
+}
+.expanded .scrollerContainer {
+	height: 480px !important;
+}
+.scrollingArea div {
+	font-weight: bold;	
+}
+/*.blackNglossy*/ .scrollingArea div {
+	color: white;
+}
+/*.blackNglossy*/ .equalsDivider {
+	border-color: white;
+	background-color: white;
+}
+/*.blackNglossy*/ .currentOperation {
+	color: #0CE6E7;
+}
+/*.blackNglossy*/ .setTotal {
+	/*color: green !important;
+	color: #B18E1B !important;
+	color: white !important;
+	color: #C70707 !important;*/
+	color: #6ACE27 !important;
+	font-weight: bold;
+}
+/* BUTTONS --------------------------------------------------------------------------------*/
+.expander {
+	position: absolute;
+	left: 12px;
+	top: 137px;
+	width: 32px;
+	height: 28px;
+	/*border: 1px solid red;*/
+	background-position: -12px -163px;
+}
+.expanded .expander {
+	top: 415px !important;
+	background-position: -12px -441px !important;
+}
+.clearAll {
+	position: absolute;
+	left: 44px;
+	top: 137px;
+	width: 32px;
+	height: 28px;
+	background-position: -44px -163px;
+}
+.expanded .clearAll {
+	top: 415px !important;
+	background-position: -44px -441px !important;
+}
+.buttonsContainer {
+	width: 100%;
+	height: 315px;
+}
+.buttonsContainer .rowSpacer {
+	width: 100%;
+}
+.buttonsContainer .rowSpacer1 {
+	height: 10px;
+	background-position: 0px -197px;
+}
+.buttonRow {
+	width: 100%;
+}
+.calc-button {
+	float: left;
+}
+/* ROW 1 -----------------------------------------------------------------------------------*/
+.row1 {
+	height: 44px;
+}
+.row1 .calc-button{
+	height: 44px;
+}
+.percentBtn {
+	background-position: 0px -207px;
+	width: 64px;
+}
+.sqrtBtn {
+	background-position: -64px -207px;
+	width: 63px;
+}
+.negativeBtn {
+	background-position: -127px -207px;
+	width: 63px;
+}
+.divisionBtn {
+	background-position: -190px -207px;
+	width: 63px;
+}
+.mPlusBtn {
+	background-position: -253px -207px;
+	width: 67px;
+}
+/* ROW 2 -----------------------------------------------------------------------------------*/
+.row2 {
+	height: 57px;
+}
+.row2 .calc-button{
+	height: 57px;
+}
+.num7Btn {
+	background-position: 0px -251px;
+	width: 64px;
+}
+.num8Btn {
+	background-position: -64px -251px;
+	width: 63px;
+}
+.num9Btn {
+	background-position: -127px -251px;
+	width: 63px;
+}
+.multiplicationBtn {
+	background-position: -190px -251px;
+	width: 63px;
+}
+.mMinusBtn {
+	background-position: -253px -251px;
+	width: 67px;
+}
+/* ROW 3 -----------------------------------------------------------------------------------*/
+.row3 {
+	height: 57px;
+}
+.row3 .calc-button{
+	height: 57px;
+}
+.num4Btn {
+	background-position: 0px -308px;
+	width: 64px;
+}
+.num5Btn {
+	background-position: -64px -308px;
+	width: 63px;
+}
+.num6Btn {
+	background-position: -127px -308px;
+	width: 63px;
+}
+.subtractionBtn {
+	background-position: -190px -308px;
+	width: 63px;
+}
+.mrBtn {
+	background-position: -253px -308px;
+	width: 67px;
+}
+/* ROW 4 -----------------------------------------------------------------------------------*/
+.row4 {
+	height: 57px;
+}
+.row4 .calc-button{
+	height: 57px;
+}
+.num1Btn {
+	background-position: 0px -365px;
+	width: 64px;
+}
+.num2Btn {
+	background-position: -64px -365px;
+	width: 63px;
+}
+.num3Btn {
+	background-position: -127px -365px;
+	width: 63px;
+}
+.additionBtn {
+	background-position: -190px -365px;
+	width: 63px;
+}
+.mcBtn {
+	background-position: -253px -365px;
+	width: 67px;
+}
+/* ROW 5 -----------------------------------------------------------------------------------*/
+.row5 {
+	height: 65px;
+}
+.row5 .calc-button{
+	height: 65px;
+}
+.cBtn {
+	background-position: 0px -422px;
+	width: 64px;
+}
+.num0Btn {
+	background-position: -64px -422px;
+	width: 63px;
+}
+.decimalBtn {
+	background-position: -127px -422px;
+	width: 63px;
+}
+.equalsBtn {
+	background-position: -190px -422px;
+	width: 63px;
+}
+.iconButton {
+	background-position: -253px -422px;
+	width: 67px;
+}
+/* Skin List Picker ----------------------------------------------------------*/
+.skin-list-row {
+	height: 150px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.skin-list-row .title {
+	font-size: 14px;
+	float: left;
+}
+.skin-list-row .preview {
+	float: right;
+	padding: 5px !important;
+}
+.skin-list-row .preview img {
+	-webkit-border-radius: 5px;
+	border: 4px solid black;
+	margin: 3px;
+}
+.my-scene-fade-top {
+	position: fixed; 
+	top: 0; 
+	z-index: 100000;
+	height: 54px; 
+	width: 100%;
+	background: url(../images/my-scene-fade-top.png) top center repeat-x;
+	-webkit-palm-mouse-target: ignore;
+}
+.palm-dark .my-scene-fade-top {
+	background-image: url(../images/my-scene-fade-top-dark.png);
+}
+
+.my-scene-fade-bottom {
+	position: fixed; 
+	bottom: 0; 
+	z-index: 100000;
+	height: 54px; 
+	width: 100%;
+	background: url(../images/my-scene-fade-bottom.png) bottom center repeat-x;
+	-webkit-palm-mouse-target: ignore;
+}
+.palm-dark .my-scene-fade-bottom {
+	background-image: url(../images/my-scene-fade-bottom-dark.png);
+}

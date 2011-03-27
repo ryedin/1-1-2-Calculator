@@ -1,0 +1,20 @@
+[
+    {"source": "app/assistants/stage-assistant.js"},
+    {"source": "jojojs/core.js"},
+    {"source": "jojojs/lang.js"},
+    {"source": "jojojs/event.js"},
+    {"source": "jojojs/fsm.js"},
+    {"source": "app/calc.js"},
+    {
+        "scenes": "first",
+        "source": "app/assistants/first-assistant.js"
+    },
+    {
+        "scenes": "test",
+        "source": "app/assistants/test-assistant.js"
+    },
+    {
+        "scenes": "skins",
+        "source": "app/assistants/skins-assistant.js"
+    }
+]

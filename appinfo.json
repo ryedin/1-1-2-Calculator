@@ -1,0 +1,23 @@
+{
+	"id": "ryan.gahl.1plus1equals2",
+	"version": "1.0.5",
+	"vendor": "Ryan Gahl",
+	"url": "http://www.1plus1app.com",
+	"type": "web",
+	"main": "index.html",
+	"title": "1+1=2 Calculator",
+	"icon": "icon.png",
+	"logLevel":20,
+	"timingEnabled":true,
+	"logEvents":false,
+	"debuggingEnabled":false,
+	"escapeHTMLInTemplates":true,
+    "copyright": "&copy; Copyright 2010 Ryan Gahl",
+    "support": {
+        "url": "http://www.1plus1app.com/2010/01/welcome-support.html",
+        "email": {
+            "address": "ryan@edgynerds.com",
+            "subject": "1+1=2 Support Inquiry"
+        }
+    }
+}
