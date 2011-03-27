@@ -7,18 +7,13 @@ function SkinsAssistant() {
 
 SkinsAssistant.prototype.setup = function() {
 	this.controller.setupWidget("skinList",
-      	{
-      		itemTemplate: 'skinListItem',
-	      	/*listTemplate: 'listscene/static-list-container',
-	      	addItemLabel: $L('Add ...'),
-	      	swipeToDelete: true,
-	      	reorderable: true,
-	      	emptyTemplate:'list/emptylist'*/
-      	},
-      	{
-          	listTitle: $L('Choose a skin'),
-          	items : [
-         		{name: "default", displayName: "Default", cssName: "blackNglossy", thumbnailPath: "images/skins/black-carbon/black_carbon_thumb.png"},
+    {
+			itemTemplate: 'skinListItem'
+		},
+		{
+	  	listTitle: $L('Choose a skin'),
+	  	items : [
+		 		{name: "default", displayName: "Default", cssName: "blackNglossy", thumbnailPath: "images/skins/black-carbon/black_carbon_thumb.png"},
 				{name: "paratroopers", displayName: "Paratroopers", cssName: "paratroopers", thumbnailPath: "images/skins/black-carbon/paratroopers/paratroopers_thumb.png"},
 				{name: "pre101", displayName: "Pre101.com", cssName: "pre101", thumbnailPath: "images/skins/black-carbon/pre101/pre101_thumb.png"},
 				{name: "radio_hibiki", displayName: "Radio Hibiki", cssName: "radiohibiki", thumbnailPath: "images/skins/black-carbon/radio_hibiki/radio_hibiki_thumb.png"},
@@ -28,13 +23,13 @@ SkinsAssistant.prototype.setup = function() {
 				{name: "webosinternals", displayName: "WebOS-Internals", cssName: "webosinternals", thumbnailPath: "images/skins/black-carbon/webosinternals/webos-internals_thumb.png"},
 				{name: "webosroundup", displayName: "webOSRoundup.com", cssName: "webosroundup", thumbnailPath: "images/skins/black-carbon/webosroundup/webosroundup_thumb.png"},
 				{name: "zombie_invasion", displayName: "Zombie Invasion!!!", cssName: "zombieinvasion", thumbnailPath: "images/skins/black-carbon/zombie_invasion/zombie_thumb.png"}
-          	]
-		}
+	  	]
+    }
 	);
 	this.controller.listen("skinList", Mojo.Event.listTap, this.handleListTap.bindAsEventListener(this));
 };
 
 SkinsAssistant.prototype.handleListTap = function(e) {
-	applySkin(e.item);
+	jojo.event.eventDispatcher.fire("skinSelected", {skin: e.item});
 	this.controller.stageController.popScene();
 };

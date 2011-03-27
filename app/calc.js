@@ -1,11 +1,11 @@
 jojo.ns("r.apps");
 
 function correctFloatingPointError(number, precision) {
-    //default returns (10000 * number) / 10000
-    //should correct very small floating point errors
- 
-    var correction = Math.pow(10, precision);
-    return Math.round(correction * number) / correction;
+  //default returns (10000 * number) / 10000
+  //should correct very small floating point errors
+
+  var correction = Math.pow(10, precision);
+  return Math.round(correction * number) / correction;
 }
 
 r.apps.calc = Class.create({

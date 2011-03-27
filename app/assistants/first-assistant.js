@@ -1,164 +1,26 @@
-var currentSkin = {
-	name: "default",
-	cssName: "blackNglossy"
-};
-var skinnableAssistant;
-var expanded = false;
-
-function applySkin(skin) {
-	if (skinnableAssistant && skin && skin.name != "" && skin.name != currentSkin.name) {
-		var main = skinnableAssistant.controller.get("main");
-		main.removeClassName(currentSkin.cssName + (expanded ? "Expanded" : ""));
-		main.addClassName(skin.cssName + (expanded ? "Expanded" : ""));
-		currentSkin = skin;
-	}
-}
-
 function FirstAssistant() {
 	
 }
 
 FirstAssistant.prototype.handleCommand = function (event) {
-	if (event.type == Mojo.Event.commandEnable &&
-	    (event.command == Mojo.Menu.helpCmd)) {
-         event.stopPropagation(); // enable help. now we have to handle it
-    }
-
-	if (event.type == Mojo.Event.command) {
-		switch (event.command) {
-			case "helpCmd":
-				this.controller.stageController.pushAppSupportInfoScene();
-				break;
-			case "skinCmd":
-				this.controller.stageController.pushScene("skins");
-				break;
-		}
-	}	
+	this.ui.handleCommand(event);	
 };
 
 FirstAssistant.prototype.setup = function() {
-	skinnableAssistant = this;
-	var me = this,
-		buttonAttributes = {
-			disabledProperty: 'disabled',
-			type: 'default'
-		},
-		main = me.controller.get("main"),
-		scrollingContents = me.controller.get("scrolling_contents"),
-		previousValuesDiv = me.controller.get("previousValuesDiv"),
-		displayArea = me.controller.get("displayArea"),
-		expander = me.controller.get("expander"),
-		clearAllBtn = me.controller.get("clearAllBtn"),
-		memDiv = me.controller.get("memDiv"),
-		memValDiv = me.controller.get("memValDiv"),
-		currValDiv = me.controller.get("currentValueDiv"),
-		scroller = Mojo.View.getScrollerForElement(me.controller.get("displayArea"));
-
-	this.controller.setupWidget(Mojo.Menu.appMenu,
-	    this.attributes = {
-        	omitDefaultItems: true
-	    },
-	    this.model = {
-	        visible: true,
-	        items: [ 
-	            //{label: "About My App ...", command: 'do-myAbout'},
-	            //Mojo.Menu.editItem,
-	            { label: "Skins...", command: 'skinCmd' },
-	            { label: "Help...", command: 'helpCmd' }
-	        ]
-	    }
-	 );
-
-	memDiv.hide();
-		
-	//setup the display area expander to allow full screen viewing
-	var isPixi = Mojo.Environment.DeviceInfo.screenHeight == 400;
-	if (isPixi) {
-		displayArea.style.height = "35px";
-		me.controller.get("main").addClassName("pixi");
-	}
-	var startHeight = isPixi ? 35 : 125; //adjust for pixi
-	var staticStartHeight = startHeight;
-	var endHeight = isPixi ? 323 : 403; //adjust for pixi
-	var staticEndHeight = endHeight;
-	var expanderStart = isPixi ? 39 : 129; //adjust for pixi
-	var expanderEnd = isPixi ? 327 : 407; //adjust for pixi
-	var currExpanderTop = expanderStart;
+	var me = this;
 	
-	//button push effect:
-	Event.observe(expander, "mousedown", function() {
-		expander.addClassName("touched");
-	});
-	Event.observe(expander, "mouseout", function() {
-		expander.removeClassName("touched");
-	});
-	Mojo.Event.listen(expander, "click", function() {
-		//button push effect:			
-		setTimeout(function() {
-			expander.removeClassName("touched");
-		}, 150);
-		
-		main.removeClassName(currentSkin.cssName + (expanded ? "Expanded" : ""));
-		main.addClassName(currentSkin.cssName + (expanded ? "" : "Expanded"));
-		if (expanded) {
-			main.removeClassName("expanded");
-		} else {
-			main.addClassName("expanded");
-		}	
-		
-		expanded = !expanded;
-	});
+	//TODO: get persisted options from db (skin, etc)
 	
-	//setup resize handler to make sure everything is always visible
-	var startScreenHeight = isPixi ? 372 : 452;
-	var currHeight = parseInt(me.controller.window.innerHeight);
-	var resizing = false;
-	var overshoot = 0;
-	function resize() {
-		if (!resizing) {
-			resizing = true;
-			var innerHeight = parseInt(me.controller.window.innerHeight);
-			var diff = currHeight - innerHeight + overshoot;
-			var from = displayArea.getHeight();
-			var to = from - diff;
-			overshoot = 0;
-			if (to < 30) {
-				overshoot = 30 - to;
-				diff = from - 30;
-			} else if (to > staticStartHeight) {
-				overshoot = to - staticStartHeight;
-				diff = from - staticStartHeight;
-			}
-			to = from - diff;
-			currHeight = innerHeight;
-			startHeight -= diff;
-			endHeight -= diff;
-			expanderStart -= diff;
-			expanderEnd -= diff;
-			var fromExpander = currExpanderTop;
-			var toExpander = fromExpander - diff;
-			currExpanderTop = toExpander;
-			animate({
-				from: from,
-				to: to,
-				fromExpander: fromExpander,
-				toExpander: toExpander,
-				isResizeAnimation: true,
-				onComplete: function() {
-					resizing = false;
-				}
-			});
+	me.ui = new calc.ui({
+		controller: me.controller,
+		skin: {
+		  name: "default",
+		  cssName: "blackNglossy"
 		}
-	}
-	Mojo.Event.listen(me.controller.window, "resize", function() {
-		//resize();
 	});
-	if (currHeight != startScreenHeight) {
-		currHeight = startScreenHeight;
-		//resize();
-	}
-	
 	me.calc = new r.apps.calc();
+	
+	var els = me.ui.elements;
 	
 	//--- load calculator state from cookie
 	var cookie = new Mojo.Model.Cookie("1plus1_beta");
@@ -169,14 +31,14 @@ FirstAssistant.prototype.setup = function() {
 		if (memData.memory !== undefined && memData.memory != null) {
 			me.calc.memory = memData.memory;
 			me.calc.hasMemory = true;
-			memDiv.show();
+			els.memDiv.show();
 			memValDiv.innerHTML = me.calc.memory;
 		}
 		
 		//output data and operations...
 		if (memData.calcState !== undefined) {
-			previousValuesDiv.innerHTML = memData.calcState.previousValuesHTML;
-			currValDiv.innerHTML = memData.calcState.currentValueHTML;
+			els.previousValuesDiv.innerHTML = memData.calcState.previousValuesHTML;
+			els.currValDiv.innerHTML = memData.calcState.currentValueHTML;
 			me.calc.currentValue = memData.calcState.currentValue || [];
 			me.calc.previousValues = memData.calcState.previousValues || [];
 			me.calc.currentOperation = r.apps.calc.operations[memData.calcState.currentOperation];
@@ -184,7 +46,7 @@ FirstAssistant.prototype.setup = function() {
 			me.calc.containsDecimal = memData.calcState.containsDecimal;
 			me.calc.decimalPlaces = memData.calcState.decimalPlaces;
 			setTimeout(function() {
-				scroller.mojo.revealBottom();
+				me.ui.scroller.mojo.revealBottom();
 			}, 100);
 		}
 	} else {
@@ -193,16 +55,16 @@ FirstAssistant.prototype.setup = function() {
 	
 	//--- clear all button (screen, memory, and stored state)
 	//button push effect:
-	Event.observe(clearAllBtn, "mousedown", function() {
-		clearAllBtn.addClassName("touched");
+	Event.observe(els.clearAllBtn, "mousedown", function() {
+		els.clearAllBtn.addClassName("touched");
 	});
-	Event.observe(clearAllBtn, "mouseout", function() {
-		clearAllBtn.removeClassName("touched");
+	Event.observe(els.clearAllBtn, "mouseout", function() {
+		els.clearAllBtn.removeClassName("touched");
 	});
-	Mojo.Event.listen(clearAllBtn, "click", function(){
+	Mojo.Event.listen(els.clearAllBtn, "click", function(){
 		//button push effect:			
 		setTimeout(function() {
-			clearAllBtn.removeClassName("touched");
+			els.clearAllBtn.removeClassName("touched");
 		}, 150);
 		
 		//first confirm action
@@ -211,10 +73,10 @@ FirstAssistant.prototype.setup = function() {
 			message: "Are you sure you want to clear all information from the calculator and start over?",
 			onChoose: function(val) {
 				if (val == "yes") {
-					previousValuesDiv.innerHTML = "";
-					currValDiv.innerHTML = "";
-					memValDiv.innerHTML = "";
-					memDiv.hide();
+					els.previousValuesDiv.innerHTML = "";
+					els.currValDiv.innerHTML = "";
+					els.memValDiv.innerHTML = "";
+					els.memDiv.hide();
 					me.calc.currentValue = [];
 					me.calc.previousValues = [];
 					me.calc.currentOperation = r.apps.calc.operations.none;
@@ -224,13 +86,13 @@ FirstAssistant.prototype.setup = function() {
 					me.calc.memory = 0;
 					me.calc.hasMemory = false;
 					setTimeout(function() {
-						scroller.mojo.revealBottom();
+						me.ui.scroller.mojo.revealBottom();
 					}, 100);
 					memData = {
 						memory: null,
 						calcState: {
-							previousValuesHTML: previousValuesDiv.innerHTML,
-							currentValueHTML: currValDiv.innerHTML,
+							previousValuesHTML: els.previousValuesDiv.innerHTML,
+							currentValueHTML: els.currValDiv.innerHTML,
 							currentValue: me.calc.currentValue,
 							currentOperation: me.calc.currentOperation.name,
 							previousValues: me.calc.previousValues,
@@ -250,7 +112,7 @@ FirstAssistant.prototype.setup = function() {
 	});
 	
 	//icon button
-	Mojo.Event.listen(me.controller.get("iconBtn"), Mojo.Event.tap, function() {
+	Mojo.Event.listen(els.iconBtn, Mojo.Event.tap, function() {
 		me.controller.showAlertDialog({
 			title: "1+1=2 by Ryan Gahl",
 			message: "Thank you for using this application. Make sure to keep checking the App Catalog, as I will be adding features continuously to make this a truly robust calculator app!",
@@ -346,7 +208,6 @@ FirstAssistant.prototype.setup = function() {
 				buttonModel.buttonLabel = "&plusmn;";
 				break;
 		}
-		//me.controller.setupWidget(buttonId, buttonAttributes, buttonModel);
 		//button push effect:
 		Event.observe(button, "mousedown", function() {
 			button.addClassName("touched");
@@ -363,36 +224,36 @@ FirstAssistant.prototype.setup = function() {
 			me.calc.update(buttonModel.buttonLabel);
 			if (!me.calc.ignoreInput && !me.calc.error) {
 				if (me.calc.newMemory) {
-					memDiv.show();
-					memValDiv.innerHTML = me.calc.memory;
+					els.memDiv.show();
+					els.memValDiv.innerHTML = me.calc.memory;
 					memData.memory = me.calc.memory;
 					cookie.put(memData);
 				} else if (me.calc.removeMemory) {
-					memDiv.hide();
+					els.memDiv.hide();
 					memData.memory = null;
 					cookie.put(memData);
 				}
 				if (me.calc.newline) {
 					if (me.calc.currentOperation !== r.apps.calc.operations.none) {
 						if (me.calc.repeatValue) {
-							currValDiv.innerHTML = me.calc.getPreviousValue();
+							els.currValDiv.innerHTML = me.calc.getPreviousValue();
 							me.calc.repeatValue = false;
 						}
-						currValDiv.innerHTML += "<span class='currentOperation'> " + me.calc.currentOperation.symbol + "</span>";
+						els.currValDiv.innerHTML += "<span class='currentOperation'> " + me.calc.currentOperation.symbol + "</span>";
 					}
-					previousValuesDiv.innerHTML += "<div>" + currValDiv.innerHTML + "</div>";
+					els.previousValuesDiv.innerHTML += "<div>" + els.currValDiv.innerHTML + "</div>";
 					if (me.calc.currentOperation === r.apps.calc.operations.equals) {
-						previousValuesDiv.innerHTML += "<div class='equalsDivider'></div>";
-						previousValuesDiv.innerHTML += "<div class='setTotal'>" + me.calc.getPreviousValue() + "&nbsp;&nbsp;</div>";
+						els.previousValuesDiv.innerHTML += "<div class='equalsDivider'></div>";
+						els.previousValuesDiv.innerHTML += "<div class='setTotal'>" + me.calc.getPreviousValue() + "&nbsp;&nbsp;</div>";
 					}
 				}
-				currValDiv.innerHTML = me.calc.currentValue.join("");
-				scroller.mojo.revealBottom();
+				els.currValDiv.innerHTML = me.calc.currentValue.join("");
+				me.ui.scroller.mojo.revealBottom();
 				
 				//store calculator state in cookie
 				memData.calcState = {
-					previousValuesHTML: previousValuesDiv.innerHTML,
-					currentValueHTML: currValDiv.innerHTML,
+					previousValuesHTML: els.previousValuesDiv.innerHTML,
+					currentValueHTML: els.currValDiv.innerHTML,
 					currentValue: me.calc.currentValue,
 					currentOperation: me.calc.currentOperation.name,
 					previousValues: me.calc.previousValues,

@@ -1,0 +1,3 @@
+[submodule "lib/jojojs-client"]
+	path = lib/jojojs-client
+	url = git@github.com:ryedin/jojojs-client.git

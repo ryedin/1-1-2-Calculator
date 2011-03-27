@@ -1,10 +1,11 @@
 [
     {"source": "app/assistants/stage-assistant.js"},
-    {"source": "jojojs/core.js"},
-    {"source": "jojojs/lang.js"},
-    {"source": "jojojs/event.js"},
-    {"source": "jojojs/fsm.js"},
+    {"source": "lib/jojojs-client/core.js"},
+    {"source": "lib/jojojs-client/lang.js"},
+    {"source": "lib/jojojs-client/event.js"},
+    {"source": "lib/jojojs-client/fsm.js"},
     {"source": "app/calc.js"},
+    {"source": "app/ui.js"},
     {
         "scenes": "first",
         "source": "app/assistants/first-assistant.js"
