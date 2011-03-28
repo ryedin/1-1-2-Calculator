@@ -1,5 +1,8 @@
 [
     {"source": "app/assistants/stage-assistant.js"},
+    {"source": "lib/Lawnchair/Lawnchair.js"},
+		{"source": "lib/Lawnchair/adaptors/LawnchairAdaptorHelpers.js"},
+    {"source": "lib/Lawnchair/adaptors/WebkitSQLiteAdaptor.js"},
     {"source": "lib/jojojs-client/core.js"},
     {"source": "lib/jojojs-client/lang.js"},
     {"source": "lib/jojojs-client/event.js"},
