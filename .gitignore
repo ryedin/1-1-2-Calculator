@@ -1,3 +1,4 @@
 .tmp*
 lib/jojojs-client
 temp.txt
+packages/*

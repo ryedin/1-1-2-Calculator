@@ -10,6 +10,7 @@
     {"source": "app/calc.js"},
     {"source": "app/ui.js"},
     {"source": "app/data.js"},
+    {"source": "app/dialogs/new-file.js"},
     {
         "scenes": "first",
         "source": "app/assistants/first-assistant.js"
@@ -21,5 +22,9 @@
     {
         "scenes": "skins",
         "source": "app/assistants/skins-assistant.js"
+    },
+    {
+        "scenes": "files",
+        "source": "app/assistants/files-assistant.js"
     }
 ]

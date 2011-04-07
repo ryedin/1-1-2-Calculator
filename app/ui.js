@@ -14,6 +14,8 @@
       
       $super(options);
       
+      this.createMenu();
+      
       /**
        * listen to global events that affect UI
        */
@@ -24,7 +26,30 @@
         //resize();
       });
     },
+    createMenu: function() {
+      var me = this;
+      me.controller.setupWidget(Mojo.Menu.appMenu, {
+        omitDefaultItems: true
+      }, {
+        visible: true,
+        items: [{
+          label: "New File...",
+          command: 'newFileCmd'
+        }, {
+          label: "Load File...",
+          command: 'loadFileCmd'
+        }, {
+          label: "Skins...",
+          command: 'skinCmd'
+        }, {
+          label: "Help...",
+          command: 'helpCmd'
+        }]
+      });
+    },
     handleCommand: function(event) {
+      var me = this;
+      
       if (event.type == Mojo.Event.commandEnable &&
       (event.command == Mojo.Menu.helpCmd)) {
         event.stopPropagation(); // enable help. now we have to handle it
@@ -34,6 +59,17 @@
         switch (event.command) {
           case "helpCmd":
             this.controller.stageController.pushAppSupportInfoScene();
+            break;
+          case "newFileCmd":
+            this.controller.showDialog({
+              template: "../dialogs/new-file",
+              assistant: new NewFileAssistant(this)
+            });          
+            break;
+          case "loadFileCmd":
+            calc.data.loadFiles(function() {
+              me.controller.stageController.pushScene("files");
+            });            
             break;
           case "skinCmd":
             this.controller.stageController.pushScene("skins");
@@ -47,6 +83,21 @@
         els.main.removeClassName(this.currentSkin.cssName + (this.expanded ? "Expanded" : ""));
         els.main.addClassName(skin.cssName + (this.expanded ? "Expanded" : ""));
         this.currentSkin = skin;
+      }
+    },
+    setFile: function(file) {
+      var me = this, els = me.elements;
+      if (file.memory !== undefined && file.memory !== null) {
+        me.updateMemory(file.memory);
+      }
+      
+      //output data and operations...
+      if (file.calcState !== undefined) {
+        els.previousValuesDiv.innerHTML = file.calcState.previousValuesHTML;
+        els.currValDiv.innerHTML = file.calcState.currentValueHTML;
+        setTimeout(function() {
+          me.scroller.mojo.revealBottom();
+        }, 100);
       }
     },
     updateMemory: function(memory) {
@@ -74,23 +125,7 @@
             currValDiv: me.controller.get("currentValueDiv"),
             iconBtn: me.controller.get("iconBtn")
           };
-          me.scroller = Mojo.View.getScrollerForElement(me.controller.get("displayArea"));
-          
-          /**
-           * create the main menu
-           */
-          me.controller.setupWidget(Mojo.Menu.appMenu, {
-            omitDefaultItems: true
-          }, {
-            visible: true,
-            items: [{
-              label: "Skins...",
-              command: 'skinCmd'
-            }, {
-              label: "Help...",
-              command: 'helpCmd'
-            }]
-          });
+          me.scroller = Mojo.View.getScrollerForElement(me.controller.get("displayArea"));          
           
           var els = me.elements;
           
@@ -160,7 +195,9 @@
           /**
            * actual calculator operation buttons -------------------------------------------------------------
            */
-          ["mPlusBtn", "mMinusBtn", "mrBtn", "mcBtn", "divisionBtn", "multiplicationBtn", "subtractionBtn", "additionBtn", "equalsBtn", "percentBtn", "cBtn", "decimalBtn", "num0Btn", "num1Btn", "sqrtBtn", "negativeBtn", "num2Btn", "num3Btn", "num4Btn", "num5Btn", "num6Btn", "num7Btn", "num8Btn", "num9Btn"].each(function(buttonId) {
+          ["mPlusBtn", "mMinusBtn", "mrBtn", "mcBtn", "divisionBtn", "multiplicationBtn", "subtractionBtn", 
+          "additionBtn", "equalsBtn", "percentBtn", "cBtn", "decimalBtn", "num0Btn", "num1Btn", "sqrtBtn", 
+          "negativeBtn", "num2Btn", "num3Btn", "num4Btn", "num5Btn", "num6Btn", "num7Btn", "num8Btn", "num9Btn"].each(function(buttonId) {
             var button = me.controller.get(buttonId);
             var buttonModel = {
               disabled: false
@@ -261,6 +298,9 @@
           els.main.removeClassName(me.currentSkin.cssName + "Expanded");
           els.main.removeClassName("expanded");
           els.main.addClassName(me.currentSkin.cssName);
+          setTimeout(function() {
+            me.scroller.mojo.revealBottom();
+          }, 100);
           
           me.expanded = false;
         },
@@ -275,6 +315,9 @@
           els.main.removeClassName(me.currentSkin.cssName);
           els.main.addClassName("expanded");
           els.main.addClassName(me.currentSkin.cssName + "Expanded");
+          setTimeout(function() {
+            me.scroller.mojo.revealBottom();
+          }, 100);
           
           me.expanded = true;
         },

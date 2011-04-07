@@ -17,6 +17,23 @@
       this.currentOperation = calc.ulator.operations.none;
       this.containsDecimal = false;
     },
+    setFile: function(file) {
+      var me = this;
+      if (file.memory !== undefined && file.memory !== null) {
+        me.memory = file.memory;
+        me.hasMemory = true;
+      }
+      
+      //output data and operations...
+      if (file.calcState !== undefined) {
+        me.currentValue = file.calcState.currentValue || [];
+        me.previousValues = file.calcState.previousValues || [];
+        me.currentOperation = calc.ulator.operations[file.calcState.currentOperation];
+        me.pendingValue = file.calcState.pendingValue;
+        me.containsDecimal = file.calcState.containsDecimal;
+        me.decimalPlaces = file.calcState.decimalPlaces;
+      }
+    },
     update: function(val) {
       this.newline = false;
       this.newMemory = false;
