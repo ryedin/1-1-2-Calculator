@@ -23,8 +23,15 @@
   
   calc.data.loadFile = function(fileName, cb) {
     filesDb.get(fileName, function(file) {
-      calc.data.file = file;
+      calc.data.file = file;       
       cb(file);
+    });
+  };
+  
+  calc.data.savePrefs = function(cb) {
+    prefsDb.save(calc.data.prefs, function(result) {
+      calc.data.prefs = result;
+      cb(result);
     });
   };
   

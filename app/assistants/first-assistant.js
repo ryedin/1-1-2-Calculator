@@ -44,20 +44,26 @@ FirstAssistant.prototype.setup = function() {
           memory: null
         }
       };
-      calc.data.file = file;
-      me.ui.setFile(file);
-      me.calc.setFile(file);
-      calc.data.saveFile(function(result) {
-        file = result;
+      calc.data.prefs.file = args.fileName;
+      calc.data.savePrefs(function() {
+        calc.data.file = file;
+        me.ui.setFile(file);
+        me.calc.setFile(file);
+        calc.data.saveFile(function(result) {
+          file = result;
+        });        
       });
     });
     
     //listen on file change event also...
     jojo.event.eventDispatcher.on("fileSelected", function(args) {
-      file = args.file;
-      calc.data.file = args.file;
-      me.ui.setFile(args.file);
-      me.calc.setFile(args.file);
+      calc.data.prefs.file = args.file.key;
+      calc.data.savePrefs(function() { 
+        file = args.file;
+        calc.data.file = args.file;
+        me.ui.setFile(args.file);
+        me.calc.setFile(args.file);
+      });
     });
     
     me.ui.on("clearState", function() {
@@ -95,15 +101,9 @@ FirstAssistant.prototype.setup = function() {
         if (me.calc.newMemory) {
           me.ui.updateMemory(me.calc.memory);
           file.memory = me.calc.memory;
-          calc.data.saveFile(function(result) {
-            file = result;
-          });
         } else if (me.calc.removeMemory) {
           me.ui.updateMemory();
           file.memory = null;
-          calc.data.saveFile(function(result) {
-            file = result;
-          });
         }
         if (me.calc.newline) {
           if (me.calc.currentOperation !== calc.ulator.operations.none) {

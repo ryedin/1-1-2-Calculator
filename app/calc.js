@@ -124,13 +124,14 @@
       return null;
     },
     finishPendingOperation: function() {
+      if (!this.currentValue.length && this.currentOperation !== calc.ulator.operations.equals) return false;
       if ((this.pendingValue || this.pendingValue == 0 || this.pendingValue < 0) &&
-      (this.currentOperation && this.currentOperation !== calc.ulator.operations.none &&
-      this.currentOperation !== calc.ulator.operations.equals)) {
+          (this.currentOperation && this.currentOperation !== calc.ulator.operations.none &&
+          this.currentOperation !== calc.ulator.operations.equals)) {
         var val = this.currentOperation.fn(this.pendingValue, this.getCurrentValue());
         if (!isNaN(val)) {
           val = correctFloatingPointError(val, 10);
-          this.previousValues.push(val);
+          this.previousValues[0] = val;
           this.pendingValue = val;
           this.currentValue = [];
           this.containsDecimal = false;
@@ -145,12 +146,13 @@
       } else {
         var val = this.currentValue.length > 0 ? this.getCurrentValue() : this.getPreviousValue();
         this.repeatValue = this.currentValue.length == 0;
-        this.previousValues.push(val);
+        this.previousValues[0] = val;
         this.pendingValue = val;
         this.currentValue = [];
         this.containsDecimal = false;
         this.currentOperation = calc.ulator.operations.none;
       }
+      return true;
     },
     clear: function() {
       this.currentValue = [];
@@ -158,31 +160,45 @@
       this.decimalPlaces = 0;
     },
     add: function() {
-      this.finishPendingOperation();
-      if (!this.error) {
-        this.currentOperation = calc.ulator.operations.add;
-        this.newline = true;
+      if (this.finishPendingOperation()) {
+        if (!this.error) {
+          this.currentOperation = calc.ulator.operations.add;
+          this.newline = true;
+        }
+      } else {
+        this.ignoreInput = true;
       }
     },
     subtract: function() {
-      this.finishPendingOperation();
-      if (!this.error) {
-        this.currentOperation = calc.ulator.operations.subtract;
-        this.newline = true;
+      if (this.finishPendingOperation()) {
+        this.finishPendingOperation();
+        if (!this.error) {
+          this.currentOperation = calc.ulator.operations.subtract;
+          this.newline = true;
+        }
+      } else {
+        this.ignoreInput = true;
       }
     },
     multiply: function() {
-      this.finishPendingOperation();
-      if (!this.error) {
-        this.currentOperation = calc.ulator.operations.multiply;
-        this.newline = true;
+      if (this.finishPendingOperation()) {
+        this.finishPendingOperation();
+        if (!this.error) {
+          this.currentOperation = calc.ulator.operations.multiply;
+          this.newline = true;
+        }
+      } else {
+        this.ignoreInput = true;
       }
     },
     divide: function() {
-      this.finishPendingOperation();
-      if (!this.error) {
-        this.currentOperation = calc.ulator.operations.divide;
-        this.newline = true;
+      if (this.finishPendingOperation()) {
+        if (!this.error) {
+          this.currentOperation = calc.ulator.operations.divide;
+          this.newline = true;
+        }
+      } else {
+        this.ignoreInput = true;
       }
     },
     percent: function() {
@@ -247,10 +263,13 @@
       this.hasMemory = false;
     },
     equals: function() {
-      this.finishPendingOperation();
-      if (!this.error) {
-        this.currentOperation = calc.ulator.operations.equals;
-        this.newline = true;
+      if (this.finishPendingOperation()) {
+        if (!this.error) {
+          this.currentOperation = calc.ulator.operations.equals;
+          this.newline = true;
+        }
+      } else {
+        this.ignoreInput = true;
       }
     }
   });
