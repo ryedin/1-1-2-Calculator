@@ -51,8 +51,8 @@
       cb(result);
     });
   };
-  
-	calc.data.fsm = new jojo.fsm.finiteStateMachine({
+
+  calc.data.fsm = new jojo.fsm.finiteStateMachine({
     states: {
       initial: {
         stateStartup: function(me, args) {
@@ -87,5 +87,5 @@
       }, //end states.initial
       ready: jojo.fsm.emptyState
     }
-	});
+  });
 })();

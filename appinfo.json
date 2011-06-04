@@ -7,7 +7,7 @@
 	"main": "index.html",
 	"title": "1+1=2 Calculator",
 	"icon": "icon.png",
-	"logLevel":20,
+	"logLevel":99,
 	"timingEnabled":true,
 	"logEvents":false,
 	"debuggingEnabled":false,
