@@ -1,0 +1,10 @@
+enyo.depends(
+  "source/underscore.js",
+  "source/jquery.js",
+  "source/calc.js",
+  "source/ulator.js",
+  "source/preferences.js",
+  "source/ui.js",
+  "source/buttons.js",
+  "css/calc.css"
+);

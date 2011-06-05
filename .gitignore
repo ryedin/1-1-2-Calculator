@@ -2,3 +2,4 @@
 lib/jojojs-client
 temp.txt
 packages/*
+*.sublime-project
