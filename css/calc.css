@@ -1,0 +1,35 @@
+.scrollingArea {
+  float: right;
+  /*width: 270px;*/
+  width: 100%;
+}
+.scrollingArea div {
+  text-align: right;
+  width: 270px;
+  /*width: 100%;*/
+  font-family: "Courier New", Courier, monospace;
+}
+.scrollingArea div div {
+  text-align: right;
+  width: 270px;
+}
+.currentOperation {
+  color: red;
+}
+.setTotal {
+  color: green;
+  padding-bottom: 15px;
+}
+.equalsDivider {
+  width: 250px;
+  border: solid 1px black;
+  display: block;
+  height: 1px;
+  background-color: black;
+}
+.completedSet {
+  position: relative;
+  width: 250px !important;
+  display: block;
+  border-bottom: dashed 1px green;
+}

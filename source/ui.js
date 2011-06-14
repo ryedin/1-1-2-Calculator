@@ -8,9 +8,27 @@
     },
     published: {
       currentValue: "",
-      currentOperation: ""
+      currentOperation: "",
+      total: ""
     },
     components: [{
+      name: "alertDialog",
+      kind: "ModalDialog",
+      components: [{
+        content: "Oops!"
+      }, {
+        name: "alertContent",
+        kind: "HtmlContent"
+      }, {
+        kind: "HFlexBox",
+        pack: "center",
+        components: [{
+          kind: "Button",
+          caption: "OK",
+          onclick: "closeAlert"
+        }]
+      }]
+    }, {
       kind: "HFlexBox",
       components: [{
         name: "operations",
@@ -19,7 +37,7 @@
         components: [{
           name: "display",
           kind: "HtmlContent",
-          content: "display"
+          content: "0"
         }, {
           name: "buttons",
           kind: "Calc.UI.Buttons",
@@ -27,16 +45,19 @@
         }]
       }, {
         name: "tape",
-        kind: "Pane",
+        kind: "VFlexBox",
         flex: 1,
         components: [{
+          name: "tapeScroller",
           kind: "Scroller",
+          autoVertical: true,
           autoHorizontal: false,
           horizontal: false,
           className: "enyo-bg",
-          style: "height: 500px;",
+          flex: 1,
           components: [{
             kind: "HtmlContent",
+            className: "scrollingArea",
             content: [
               '<div id="previousValuesDiv"></div>',
               '<div id="currentValueDiv">0</div>'
@@ -45,12 +66,28 @@
         }]
       }]
     }],
+    alert: function(content) {
+      this.$.alertDialog.open();
+      $("#" + this.getId() + "_alertContent").html(content);
+    },
+    closeAlert: function() {
+      this.$.alertDialog.close();
+    },
+    newLine: function() {
+      $("#previousValuesDiv").append("<div>" + $("#currentValueDiv").html() + "</div>");
+    },
     currentValueChanged: function() {
-      this.$.display.setContent(this.currentValue);
+      if (this.currentValue !== "") this.$.display.setContent(this.currentValue);
       $("#currentValueDiv").html(this.currentValue);
+      this.$.tapeScroller.scrollToBottom();
     },
     currentOperationChanged: function() {
       $("#currentValueDiv").append("<span class='currentOperation'> " + this.currentOperation + "</span>");
+    },
+    totalChanged: function() {
+      $("#previousValuesDiv").append("<div class='equalsDivider'></div>");
+      $("#previousValuesDiv").append("<div class='setTotal'>" + this.total + "&nbsp;&nbsp;</div>");
+      this.setCurrentValue(this.total);
     }
   });
 

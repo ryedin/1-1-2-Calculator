@@ -138,7 +138,7 @@
           this.containsDecimal = false;
           this.currentOperation = Calc.Ulator.operations.none;
         } else {
-          if (typeof val == "string") {
+          if (typeof val === "string") {
             this.error = val;
           } else {
             this.error = "Unknown error.";
@@ -156,7 +156,7 @@
       return true;
     },
     clear: function() {
-      this.currentValue = [];
+      this.currentValue = ["0"];
       this.containsDecimal = false;
       this.decimalPlaces = 0;
     },
@@ -205,7 +205,12 @@
     percent: function() {
       if (this.currentValue.length > 0 || this.previousValues.length > 0) {
         var val = this.currentValue.length > 0 ? this.getCurrentValue() : this.getPreviousValue();
-        val = correctFloatingPointError((val / 100), 10);
+        var times = 1;
+        if (this.currentOperation !== Calc.Ulator.operations.equals
+            && this.previousValues.length > 0) {
+          times = this.getPreviousValue();
+        }
+        val = correctFloatingPointError((val / 100) * times, 10);
         this.currentValue = val.toString().split("");
       }
     },
@@ -222,8 +227,13 @@
     },
     plusmn: function() {
       if (this.currentValue.length == 0) {
-        this.currentValue.push("-");
-      } else if (this.currentValue[0] == "-") {
+        if (this.previousValues.length > 0) {
+          this.currentValue = this.getPreviousValue().toString().split("");
+        } else {
+          this.currentValue.push("-");
+        }
+      } 
+      if (this.currentValue[0] == "-") {
         this.currentValue[0] = "";
       } else {
         this.currentValue.unshift("-");

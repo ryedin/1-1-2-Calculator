@@ -35,6 +35,8 @@
         ui = this.$.ui;
       calc.update(btn.label);
       if (!calc.ignoreInput && !calc.error) {
+        var currentValue = calc.currentValue.join(""),
+          previousValue = calc.getPreviousValue();
         if (calc.newMemory) {
           //ui.updateMemory(calc.memory);
           //file.memory = calc.memory;
@@ -45,21 +47,18 @@
         if (calc.newline) {
           if (calc.currentOperation !== Calc.Ulator.operations.none) {
             if (calc.repeatValue) {
-              ui.setCurrentValue(calc.getPreviousValue());
+              ui.setCurrentValue(previousValue);
               calc.repeatValue = false;
             }
             ui.setCurrentOperation(calc.currentOperation.symbol);
           }
-          ui.
-          //els.previousValuesDiv.innerHTML += "<div>" + els.currValDiv.innerHTML + "</div>";
+          ui.newLine();
           if (calc.currentOperation === Calc.Ulator.operations.equals) {
-            // els.previousValuesDiv.innerHTML += "<div class='equalsDivider'></div>";
-            // els.previousValuesDiv.innerHTML += "<div class='setTotal'>" + calc.getPreviousValue() + "&nbsp;&nbsp;</div>";
+            ui.setTotal(previousValue);
           }
         }
 
-        ui.setCurrentValue(calc.currentValue.join(""));
-        // ui.scroller.mojo.revealBottom();
+        ui.setCurrentValue(currentValue);
         
         //store calculator state
         // file.calcState = {
@@ -77,14 +76,7 @@
         // });
       }
       if (calc.error) {
-        // me.controller.showAlertDialog({
-        //   title: "Error",
-        //   message: calc.error,
-        //   choices: [{
-        //     label: "OK",
-        //     type: "affirmative"
-        //   }]
-        // });
+        ui.alert(calc.error);
       }
     },
     showPreferences: function() {

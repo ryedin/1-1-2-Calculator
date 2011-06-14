@@ -1,6 +1,7 @@
 enyo.depends(
   "source/underscore.js",
   "source/jquery.js",
+  "source/jquery.tmpl.js",
   "source/calc.js",
   "source/ulator.js",
   "source/preferences.js",
