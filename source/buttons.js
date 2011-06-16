@@ -94,10 +94,10 @@
         buttonComponents.push({
           name: btnName,
           kind: "Button",
+          className: "calcbutton",
           caption: btn.label,
           onclick: btnName + "_clicked",
-          allowHtml: true,
-          width: "50px"
+          allowHtml: true
         });
         spec[btnName + "_clicked"] = function() {
           this.doButtonClicked(btn);

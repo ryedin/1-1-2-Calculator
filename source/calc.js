@@ -1,5 +1,5 @@
 (function() {
-    
+
   enyo.kind({
     name: "Calc.Main",
     kind: enyo.VFlexBox,
@@ -38,10 +38,10 @@
         var currentValue = calc.currentValue.join(""),
           previousValue = calc.getPreviousValue();
         if (calc.newMemory) {
-          //ui.updateMemory(calc.memory);
+          ui.setMemory(calc.memory);
           //file.memory = calc.memory;
         } else if (calc.removeMemory) {
-          //ui.updateMemory();
+          ui.setMemory();
           //file.memory = null;
         }
         if (calc.newline) {

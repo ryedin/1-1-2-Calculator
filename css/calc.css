@@ -1,19 +1,64 @@
+@font-face {
+  font-family: 'LCD';
+  src: url(../fonts/LCDMonoWinTT/LCDM2N__.TTF);
+}
+.hidden {
+  display: none;
+}
+.calcheader {
+  font-size: 12px;
+  min-height: 30px !important;
+  height: 30px;
+}
+.calcheader .enyo-header-inner {
+  padding: 5px 15px;
+}
+.operationsArea {
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 0px;
+}
+.operationsArea .buttons {
+  padding: 5px;
+}
+.operationsArea .calcbutton {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+.display {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  padding: 5px;
+  margin-top: 10px;
+  margin-right: 50px;
+}
+.display span {
+  display: block;
+  float: right;
+}
+#displayVal {  
+  position: relative;
+  top: 5px;
+}
 .scrollingArea {
   float: right;
   /*width: 270px;*/
   width: 100%;
+  padding: 20px;
 }
 .scrollingArea div {
   text-align: right;
-  width: 270px;
-  /*width: 100%;*/
+  /*width: 270px;*/
+  width: 100%;
   font-family: "Courier New", Courier, monospace;
 }
 .scrollingArea div div {
   text-align: right;
-  width: 270px;
+  /*width: 270px;*/
 }
-.currentOperation {
+.operation {
   color: red;
 }
 .setTotal {
@@ -21,7 +66,7 @@
   padding-bottom: 15px;
 }
 .equalsDivider {
-  width: 250px;
+  /*width: 250px;*/
   border: solid 1px black;
   display: block;
   height: 1px;
@@ -29,7 +74,22 @@
 }
 .completedSet {
   position: relative;
-  width: 250px !important;
+  /*width: 250px !important;*/
   display: block;
   border-bottom: dashed 1px green;
+}
+#memDiv {
+  position: absolute;
+  left: 30px;
+  top: 5px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  color: #333;
+  z-index: 10;
+}
+#memDiv span {
+  font-size: 10px;
+  padding-left: 5px;
+  color: #666;
 }

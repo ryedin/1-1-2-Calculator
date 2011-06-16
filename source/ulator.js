@@ -252,14 +252,14 @@
     mPlus: function() {
       var mem = this.currentValue.length > 0 ? this.getCurrentValue() : (this.previousValues.length > 0 ? this.getPreviousValue() : this.getCurrentValue());
       this.memory = this.hasMemory ? this.memory + mem : mem;
-      this.memory = correctFloatingPointError(this.memory, 10);
+      //this.memory = correctFloatingPointError(this.memory, 10);
       this.hasMemory = true;
       this.newMemory = true;
     },
     mMinus: function() {
       var mem = this.currentValue.length > 0 ? this.getCurrentValue() : (this.previousValues.length > 0 ? this.getPreviousValue() : this.getCurrentValue());
       this.memory = this.hasMemory ? this.memory - mem : (0 - mem);
-      this.memory = correctFloatingPointError(this.memory, 10);
+      //this.memory = correctFloatingPointError(this.memory, 10);
       this.hasMemory = true;
       this.newMemory = true;
     },
@@ -297,28 +297,28 @@
       name: "add",
       symbol: "+",
       fn: function(a, b) {
-        return eval(a + "+" + b);
+        return eval("(" + a + ") + (" + b + ")");
       }
     },
     subtract: {
       name: "subtract",
       symbol: "-",
       fn: function(a, b) {
-        return eval(a + "-" + b);
+        return eval("(" + a + ") - (" + b + ")");
       }
     },
     multiply: {
       name: "multiply",
       symbol: "x",
       fn: function(a, b) {
-        return eval(a + "*" + b);
+        return eval("(" + a + ") * (" + b + ")");
       }
     },
     divide: {
       name: "divide",
       symbol: "&divide;",
       fn: function(a, b) {
-        if (eval(b) != 0) { return eval(a + "/" + b); }
+        if (eval(b) != 0) { return eval("(" + a + ") / (" + b + ")"); }
         return "Cannot divide by zero.";
       }
     }
