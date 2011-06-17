@@ -14,7 +14,7 @@
   padding: 5px 15px;
 }
 .operationsArea {
-  padding-left: 20px;
+  padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
   padding-top: 0px;
@@ -22,33 +22,65 @@
 .operationsArea .buttons {
   padding: 5px;
   margin-top: 5px;  
+  margin-left: 6px;  
 }
 .operationsArea .calcbutton {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 95px;
+  height: 85px;
+  background-image: url(../images/skins/touchpad1/buttons_off.png);
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  /*line-height: 40px;
   box-shadow: 3px 3px 3px #888888;
   font-family: verdana;
   font-size: 20px;
   font-weight: bold;
   color: #999;
-  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
+  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);*/
+}
+/* rows -------------------------------------*/
+.operationsArea .calcbutton.row2 {
+  background-position-y: -85px;
+}
+.operationsArea .calcbutton.row3 {
+  background-position-y: -170px;
+}
+.operationsArea .calcbutton.row4 {
+  background-position-y: -255px;
+}
+.operationsArea .calcbutton.row5 {
+  background-position-y: -340px;
+}
+/* columns -----------------------------------*/
+.operationsArea .calcbutton.col2 {
+  background-position-x: -97px;
+}
+.operationsArea .calcbutton.col3 {
+  background-position-x: -195px;
+}
+.operationsArea .calcbutton.col4 {
+  background-position-x: -292px;
+}
+.operationsArea .calcbutton.col5 {
+  background-position-x: -388px;
 }
 .display {
   font-family: verdana;
   font-size: 20px;
   padding: 5px;
   /*margin-right: 57px;*/
-  border-width: 1px;
+  /*border-width: 1px;
   border-color: #aaa;
   border-radius: 5px;
-  border-style: solid;
+  border-style: solid;*/
   position: relative;
   top: 6px;
   left: 8px;
-  height: 40px;
-  width: 320px;
-  box-shadow: 3px 3px 3px #888888;
+  height: 70px;
+  width: 485px;
+  /*box-shadow: 3px 3px 3px #888888;*/
+  background-image: url(../images/skins/touchpad1/display.png);
+  background-repeat: no-repeat;
 }
 .display span {
   display: block;
@@ -56,9 +88,9 @@
 }
 #displayVal {  
   position: relative;
-  top: 10px;
-  right: 5px;
-  font-size: 21px;
+  top: 20px;
+  right: 25px;
+  font-size: 28px;
   font-weight: bold;
   text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
   color: #999;
@@ -74,6 +106,7 @@
   /*width: 270px;*/
   width: 100%;
   font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
 }
 .scrollingArea div div {
   text-align: right;
@@ -101,7 +134,7 @@
 }
 #memDiv {
   position: absolute;
-  top: 0px;
+  top: 5px;
   font-weight: bold;
   font-size: 12px;
   color: #666;

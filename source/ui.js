@@ -21,7 +21,7 @@
         ]}
       ]}, 
       {name: "slidingPane", kind: "SlidingPane", flex: 1, components: [
-        {name: "left", width: "420px", kind:"SlidingView", components: [
+        {name: "left", width: "520px", kind:"SlidingView", components: [
             {kind: "Header", className: "calcheader", content:"Panel 1"},
             {kind: "Scroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [

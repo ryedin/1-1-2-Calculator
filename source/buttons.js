@@ -87,22 +87,23 @@
     components: []
   };
 
-  _.each(rows, function(row) {
+  _.each(rows, function(row, rowIndex) {
     var buttonComponents = [];
+    var i = 0;
     for (var btn in row) {
-      (function(btnName, btn) {
+      (function(btnName, btn, colIndex) {
         buttonComponents.push({
           name: btnName,
-          kind: "Button",
-          className: "calcbutton",
-          caption: btn.label,
-          onclick: btnName + "_clicked",
-          allowHtml: true
+          kind: "HtmlContent",
+          className: "calcbutton row" + (rowIndex+1) + " col" + (colIndex+1),
+          //caption: btn.label,
+          onclick: btnName + "_clicked"//,
+          //allowHtml: true
         });
         spec[btnName + "_clicked"] = function() {
           this.doButtonClicked(btn);
         };
-      })(btn, row[btn]);
+      })(btn, row[btn], i++);
     }
     spec.components.push({
       kind: enyo.HFlexBox,
