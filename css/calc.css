@@ -21,18 +21,34 @@
 }
 .operationsArea .buttons {
   padding: 5px;
+  margin-top: 5px;  
 }
 .operationsArea .calcbutton {
   width: 40px;
   height: 40px;
   line-height: 40px;
+  box-shadow: 3px 3px 3px #888888;
+  font-family: verdana;
+  font-size: 20px;
+  font-weight: bold;
+  color: #999;
+  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
 }
 .display {
-  font-family: "Courier New", Courier, monospace;
+  font-family: verdana;
   font-size: 20px;
   padding: 5px;
-  margin-top: 10px;
-  margin-right: 50px;
+  /*margin-right: 57px;*/
+  border-width: 1px;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-style: solid;
+  position: relative;
+  top: 6px;
+  left: 8px;
+  height: 40px;
+  width: 320px;
+  box-shadow: 3px 3px 3px #888888;
 }
 .display span {
   display: block;
@@ -40,7 +56,12 @@
 }
 #displayVal {  
   position: relative;
-  top: 5px;
+  top: 10px;
+  right: 5px;
+  font-size: 21px;
+  font-weight: bold;
+  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
+  color: #999;
 }
 .scrollingArea {
   float: right;
@@ -80,16 +101,17 @@
 }
 #memDiv {
   position: absolute;
-  left: 30px;
-  top: 5px;
+  top: 0px;
   font-weight: bold;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 16px;
-  color: #333;
+  font-size: 12px;
+  color: #666;
+  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
   z-index: 10;
 }
 #memDiv span {
   font-size: 10px;
   padding-left: 5px;
   color: #666;
+  text-shadow: none;
+  font-weight: normal;
 }

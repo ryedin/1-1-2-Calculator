@@ -228,15 +228,18 @@
     plusmn: function() {
       if (this.currentValue.length == 0) {
         if (this.previousValues.length > 0) {
-          this.currentValue = this.getPreviousValue().toString().split("");
+          this.currentValue = (eval("(" + this.getPreviousValue() + ") * -1")).toString().split("");
         } else {
           this.currentValue.push("-");
         }
-      } 
-      if (this.currentValue[0] == "-") {
-        this.currentValue[0] = "";
       } else {
-        this.currentValue.unshift("-");
+        if (this.currentValue.length == 1 && this.currentValue[0] === "0") {
+          this.currentValue[0] = "-";
+        } else if (this.currentValue[0] == "-") {
+          this.currentValue[0] = "";
+        } else {
+          this.currentValue.unshift("-");
+        }
       }
     },
     decimal: function() {
