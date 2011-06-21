@@ -7,7 +7,7 @@ enyo.kind({
     onCancel: ""
   },
   components: [
-    {kind: "PageHeader", content: "1+1=2 Feature Calculator - Preferences"},
+    {kind: "PageHeader", content: "Preferences"},
     {name: "preferencesService", kind: "enyo.SystemService"},
     {kind: "VFlexBox",
       components: [

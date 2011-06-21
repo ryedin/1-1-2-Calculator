@@ -8,6 +8,9 @@
       components: [{
         caption: "Preferences", 
         onclick: "showPreferences"
+      }, {
+        caption: "Files", 
+        onclick: "showFiles"
       }]
     }, {
       name: "pane", 
@@ -17,20 +20,25 @@
         name: "ui",
         className: "enyo-bg",
         kind: "Calc.UI",
-        onButtonClicked: "buttonClicked"
+        onButtonClicked: "calcButtonClicked"
       }, {
         name: "preferences",
         className: "enyo-bg",
         kind: "Calc.Preferences",
         onReceive: "preferencesReceived",
         onSave: "preferencesSaved",
-        onCancel: "preferencesCanceled"
+        onCancel: "childPaneCanceled"
+      }, {
+        name: "files",
+        className: "enyo-bg",
+        kind: "Calc.Files",
+        onCancel: "childPaneCanceled"
       }]
     }, {
       name: "ulator",
       kind: "Calc.Ulator"
     }],
-    buttonClicked: function(sender, btn) {
+    calcButtonClicked: function(sender, btn) {
       var calc = this.$.ulator,
         ui = this.$.ui;
       calc.update(btn.label);
@@ -80,7 +88,10 @@
       }
     },
     showPreferences: function() {
-        // handle the button click
+      this.$.pane.selectViewByName("preferences");
+    },
+    showFiles: function() {
+      this.$.pane.selectViewByName("files");
     },
     preferencesReceived: function() {
         // handle the button click
@@ -88,8 +99,8 @@
     preferencesSaved: function() {
         // handle the button click
     },
-    preferencesCanceled: function() {
-        // handle the button click
+    childPaneCanceled: function() {
+      this.$.pane.selectViewByName("ui");
     }
   });
 
