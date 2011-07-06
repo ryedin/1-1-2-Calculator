@@ -39,7 +39,7 @@
               {name: "tape", kind: "VFlexBox", flex: 1, components: [
                 {name: "tapeScroller", kind: "Scroller", autoVertical: true, autoHorizontal: false,
                     horizontal: false, className: "enyo-bg", flex: 1, components: [
-                  {kind: "HtmlContent", className: "scrollingArea", content: [
+                  {kind: "HtmlContent", name: "tapeContent", className: "scrollingArea", content: [
                       '<div id="previousValuesDiv">',
                         '<div class="calcset current"></div>',
                       '</div>',
@@ -55,16 +55,7 @@
             {kind: "Toolbar", components: [
               {kind: "GrabButton"}
             ]}
-        ]}//,
-        // {name: "right", kind:"SlidingView", flex: 1, components: [
-        //     {kind: "Header", content:"Panel 3"},
-        //     {kind: "Scroller", flex: 1, components: [
-        //       //Insert your components here
-        //     ]},
-        //     {kind: "Toolbar", components: [
-        //       {kind: "GrabButton"}
-        //     ]}
-        // ]}
+        ]}
       ]}
     ],
     alert: function(content) {
@@ -73,6 +64,12 @@
     },
     closeAlert: function() {
       this.$.alertDialog.close();
+    },
+    loadHtml: function(html) {
+      this.$.tapeContent.setContent(html);
+    },
+    getHtml: function() {
+      return $("#" + this.getId() + "_tapeContent").html();
     },
     newLine: function() {
       var currHtml = $("#currentValueDiv").html();
@@ -145,7 +142,9 @@
       }
     },
     currentOperationChanged: function() {
-      $("#currentValueDiv .operation").html(" " + this.currentOperation);
+      if (this.currentOperation) {
+        $("#currentValueDiv .operation").html(" " + this.currentOperation);
+      }
     },
     totalChanged: function() {
       $("#previousValuesDiv .calcset.current")

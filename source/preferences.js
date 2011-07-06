@@ -2,7 +2,7 @@ enyo.kind({
   name: "Calc.Preferences",
   kind: enyo.VFlexBox,
   events: {
-    onReceive: "",
+    onPreferencesLoaded: "",
     onSave: "",
     onCancel: ""
   },
@@ -26,44 +26,30 @@ enyo.kind({
   ],
   create: function() {
     this.inherited(arguments);
-    this.prefs = {};
-    // this.$.preferencesService.call(
-    // {
-      // keys: ["defaultFeed"]
-    // },
-    // {
-      // method: "getPreferences",
-      // onSuccess: "gotPreferences",
-      // onFailure: "gotPreferencesFailure"
-    // });
-    // // keep this updated with the value that's currently saved to the service
-    // this.savedUrl = "";
+    this.prefs = {key: "default"};
+
+    this.db = new Lawnchair({name: "ext:prefs"}); 
+
+    //for testing...
+    //this.db.nuke();
+    
+    this.loadPreferences();  
   },
-  gotPreferences: function(inSender, inResponse) {
-    // this.savedUrl = inResponse.defaultFeed;
-    // this.$.defaultFeedInput.setValue(this.savedUrl);
-    // this.doReceive(this.savedUrl);
+  loadPreferences: function() {
+    var me = this;
+    me.db.get("default", function(prefs) {
+      if (prefs) {
+        me.prefs = prefs;
+        me.doPreferencesLoaded(prefs);
+      }
+    });
   },
-  gotPreferencesFailure: function(inSender, inResponse) {
-    // enyo.log("got failure from preferencesService");
+  setPreference: function(key, value) {
+    this.prefs[key] = value;
+    this.db.save(this.prefs);
   },
-  showingChanged: function() {
-    // reset contents of text input box to last saved value
-    // this.$.defaultFeedInput.setValue(this.savedUrl);
-  },
-  saveClick: function(inSender, inEvent) {
-    // var newDefaultFeedValue = this.$.defaultFeedInput.getValue();
-    // this.$.preferencesService.call(
-    // {
-      // keys: {
-        // "defaultFeed": newDefaultFeedValue
-      // }
-    // },
-    // {
-      // method: "setPreferences"
-    // });
-    // this.savedUrl = newDefaultFeedValue;
-    // this.doSave(newDefaultFeedValue);
+  saveClick: function() {
+    this.doSave();
   },
   cancelClick: function() {
     this.doCancel();

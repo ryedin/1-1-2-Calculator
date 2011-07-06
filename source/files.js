@@ -1,36 +1,34 @@
 (function() {
   
+  var emptyState = {
+    html: [
+      '<div id="previousValuesDiv">',
+        '<div class="calcset current"></div>',
+      '</div>',
+      '<div id="currentValueDiv">',
+        '<span class="value">0</span>',
+        '<span class="operation">&nbsp;&nbsp;</span>',
+      '</div>'
+    ].join(''),
+    currentValue: [],
+    currentOperation: "none",
+    previousValues: [],
+    pendingValue: null,
+    containsDecimal: false,
+    decimalPlaces: 0,
+    memory: null
+  };
   var noFiles = [{key: "No files found...", disabled: true}];
 
   enyo.kind({
     name: "Calc.Files",
     kind: enyo.VFlexBox,
     events: {
-      onChooseFile: "",
-      onCancel: ""
+      onCancel: "",
+      onFileSelected: ""
     },
-    create: function() {
-      var me = this;
-
-      me.inherited(arguments);
-      me.db = new Lawnchair({name: "ext:files"});    
-
-      //for testing...
-      me.db.nuke();
-
-      me.loadFiles();
-      
-    },
-    loadFiles: function() {
-      var me = this;
-      me.db.all(function(files) {
-        if (files && files.length) {
-          me.files = files;
-        } else {
-          me.files = noFiles;
-        }
-        me.$.fileList.render();
-      });
+    published: {
+      currentFile: ""
     },
     components: [
       {name: "alertDialog", kind: "ModalDialog", components: [
@@ -61,7 +59,7 @@
               {kind: "Item", components: [
                 {kind: "Input", disabled: true, name: "input", components: [
                   {kind: "Button", name: "deleteBtn", caption: "Delete", onclick: "deleteFileClick", className: "enyo-button-negative"},
-                  {kind: "Button", name: "openBtn", caption: "Open", onclick: "newFileClick", className: "enyo-button-affirmative"}
+                  {kind: "Button", name: "openBtn", caption: "Open", onclick: "openFileClick", className: "enyo-button-affirmative"}
                 ]}
               ]}
             ]}
@@ -74,6 +72,43 @@
         ]
       },
     ],
+    create: function() {
+      var me = this;
+      me.files = [];
+
+      me.inherited(arguments);
+      me.db = new Lawnchair({name: "ext:files"});    
+
+      //for testing...
+      //me.db.nuke();
+
+      me.loadFiles();      
+    },
+    currentFileChanged: function() {
+      this.doFileSelected(this.currentFile);
+    },
+    loadFiles: function() {
+      var me = this;
+      me.db.all(function(files) {
+        if (files && files.length) {
+          me.files = files;
+        } else {
+          me.files = noFiles;
+        }
+        me.$.fileList.render();
+      });
+    },
+    loadFile: function(name) {
+      var me = this;
+      this.db.get(name, function(file) {
+        me.setCurrentFile(file);
+      });
+    },
+    saveFile: function(file, cb) {
+      this.db.save(file, function(savedFile) {
+        cb && cb(savedFile);
+      });
+    },
     alert: function(content) {
       this.$.alertDialog.open();
       $("#" + this.getId() + "_alertContent").html(content);
@@ -119,12 +154,13 @@
         this.alert("A file already exists with that name.");
       } else {
         file = {key: fileName};
+        file.state = _.clone(emptyState);
         this.db.save(file, function(savedFile) {
           //remove disabled item if this is the first real file
           if (me.files.length == 1 && me.files[0].disabled) me.files = [];
           me.files.push(savedFile);
           me.$.fileList.render();
-          me.doChooseFile(savedFile);
+          me.setCurrentFile(savedFile);
         });
       }
     },
@@ -137,8 +173,9 @@
         });
       });
     },
-    fileSelect: function(sender, evt) {
-      this.doChooseFile(this.files[evt.rowIndex]);
+    openFileClick: function(sender, evt) {
+      var file = this.files[evt.rowIndex];
+      this.setCurrentFile(file);
     },
     cancelClick: function() {
       this.doCancel();

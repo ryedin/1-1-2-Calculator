@@ -11,6 +11,9 @@
   enyo.kind({
     name: "Calc.Ulator",
     kind: "Component",
+    published: {
+      state: ""
+    },
     constructor: function(options) { //put this here in case I later want to add constructor options
       this.currentValue = [];
       this.previousValues = [];
@@ -18,21 +21,20 @@
       this.containsDecimal = false;
       this.inherited(arguments);
     },
-    setFile: function(file) {
+    stateChanged: function() {
       var me = this;
-      if (file.memory !== undefined && file.memory !== null) {
-        me.memory = file.memory;
-        me.hasMemory = true;
-      }
-      
       //output data and operations...
-      if (file.calcState !== undefined) {
-        me.currentValue = file.calcState.currentValue || [];
-        me.previousValues = file.calcState.previousValues || [];
-        me.currentOperation = Calc.Ulator.operations[file.calcState.currentOperation];
-        me.pendingValue = file.calcState.pendingValue;
-        me.containsDecimal = file.calcState.containsDecimal;
-        me.decimalPlaces = file.calcState.decimalPlaces;
+      if (me.state !== undefined) {
+        if (me.state.memory !== undefined && me.state.memory !== null) {
+          me.memory = me.state.memory;
+          me.hasMemory = true;
+        }
+        me.currentValue = me.state.currentValue || [];
+        me.previousValues = me.state.previousValues || [];
+        me.currentOperation = Calc.Ulator.operations[me.state.currentOperation];
+        me.pendingValue = me.state.pendingValue;
+        me.containsDecimal = me.state.containsDecimal;
+        me.decimalPlaces = me.state.decimalPlaces;
       }
     },
     update: function(val) {
