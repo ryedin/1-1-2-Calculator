@@ -2,6 +2,9 @@
   font-family: 'LCD';
   src: url(../fonts/LCDMonoWinTT/LCDM2N__.TTF);
 }
+body {
+  background-image: url(../images/skins/touchpad1/tile_1.png);
+}
 .hidden {
   display: none;
 }
@@ -13,21 +16,26 @@
 .calcheader .enyo-header-inner {
   padding: 5px 15px;
 }
+.operationsScroller {
+  background-image: url(../images/skins/touchpad1/left_large_tile_1.png);  
+}
 .operationsArea {
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
   padding-top: 0px;
+  background-image: url(../images/skins/touchpad1/full_off_1.png);
+  background-repeat: no-repeat;
 }
 .operationsArea .buttons {
   padding: 5px;
-  margin-top: 5px;  
-  margin-left: 6px;  
+  margin-top: 1px;  
+  margin-left: 5px;  
 }
 .operationsArea .calcbutton {
-  width: 95px;
+  width: 97px;
   height: 85px;
-  background-image: url(../images/skins/touchpad1/buttons_off.png);
+  background-image: url(../images/skins/touchpad1/buttons_off_1.png);
   background-position: 0px 0px;
   background-repeat: no-repeat;
   /*line-height: 40px;
@@ -54,12 +62,15 @@
 /* columns -----------------------------------*/
 .operationsArea .calcbutton.col2 {
   background-position-x: -97px;
+  width: 99px;
 }
 .operationsArea .calcbutton.col3 {
-  background-position-x: -195px;
+  background-position-x: -197px;
+  width: 95px;
 }
 .operationsArea .calcbutton.col4 {
   background-position-x: -292px;
+  width: 95px;
 }
 .operationsArea .calcbutton.col5 {
   background-position-x: -388px;
@@ -79,8 +90,8 @@
   height: 70px;
   width: 485px;
   /*box-shadow: 3px 3px 3px #888888;*/
-  background-image: url(../images/skins/touchpad1/display.png);
-  background-repeat: no-repeat;
+  /*background-image: url(../images/skins/touchpad1/display_1.png);
+  background-repeat: no-repeat;*/
 }
 .display span {
   display: block;
@@ -100,13 +111,16 @@
   /*width: 270px;*/
   width: 100%;
   padding: 20px;
+  background-image: url(../images/skins/touchpad1/tile_1.png);
 }
 .scrollingArea div {
   text-align: right;
   /*width: 270px;*/
   width: 100%;
   font-family: "Courier New", Courier, monospace;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
 }
 .scrollingArea div div {
   text-align: right;
@@ -116,7 +130,7 @@
   color: red;
 }
 .setTotal {
-  color: green;
+  color: #16b812 !important;
   padding-bottom: 15px;
 }
 .equalsDivider {

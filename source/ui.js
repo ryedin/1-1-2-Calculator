@@ -23,7 +23,7 @@
       {name: "slidingPane", kind: "SlidingPane", flex: 1, components: [
         {name: "left", width: "520px", kind:"SlidingView", components: [
             {kind: "Header", className: "calcheader", content:"Panel 1"},
-            {kind: "Scroller", flex: 1, components: [
+            {kind: "Scroller", className: "operationsScroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [
                 {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'>0</span>"}, 
                 {name: "buttons", className: "buttons", kind: "Calc.UI.Buttons", onButtonClicked: "doButtonClicked"}
