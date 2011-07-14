@@ -5,7 +5,10 @@
     kind: enyo.VFlexBox,
     components: [{
       kind: "AppMenu",
-      components: [/*{
+      components: [{
+        caption: "Help",
+        onclick: "showHelp"
+      }, /*{
         caption: "Preferences", 
         onclick: "showPreferences"
       },*/ {
@@ -107,6 +110,9 @@
         this.$.ui.setFileName(file.key);
         this.$.preferences.setPreference("fileName", file.key);
       }
+    },
+    showHelp: function() {
+      window.open("http://www.1plus1app.com");
     },
     showPreferences: function() {
       this.$.pane.selectViewByName("preferences");
