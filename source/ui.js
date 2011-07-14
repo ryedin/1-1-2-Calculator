@@ -22,7 +22,7 @@
       ]}, 
       {name: "slidingPane", kind: "SlidingPane", flex: 1, components: [
         {name: "left", width: "520px", kind:"SlidingView", components: [
-            {kind: "Header", className: "calcheader", content:"Panel 1"},
+            {kind: "Header", className: "calcheader", content:""},
             {kind: "Scroller", className: "operationsScroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [
                 {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'>0</span>"}, 
@@ -34,11 +34,11 @@
             ]}
         ]},
         {name: "middle", width: "100%", kind:"SlidingView", peekWidth: 50, components: [
-            {kind: "Header", className: "calcheader", content:"Panel 2"},
+            {kind: "Header", className: "calcheader", content:""},
             {kind: "Scroller", flex: 1, components: [
               {name: "tape", kind: "VFlexBox", flex: 1, components: [
                 {name: "tapeScroller", kind: "Scroller", autoVertical: true, autoHorizontal: false,
-                    horizontal: false, className: "enyo-bg", flex: 1, components: [
+                    horizontal: false, className: "enyo-bg tapeScroller", flex: 1, components: [
                   {kind: "HtmlContent", name: "tapeContent", className: "scrollingArea", content: [
                       '<div id="previousValuesDiv">',
                         '<div class="calcset current"></div>',
@@ -75,6 +75,9 @@
       var currHtml = $("#currentValueDiv").html();
       $("#previousValuesDiv .calcset.current").append("<div class='line'>" + currHtml + "</div>");
       $("#currentValueDiv .operation").html("&nbsp;&nbsp;");
+    },
+    updateDisplay: function(value) {
+      $("#displayVal").html(value);
     },
     currentValueChanged: function() {
       if (this.currentValue !== "") {

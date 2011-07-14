@@ -5,10 +5,10 @@
     kind: enyo.VFlexBox,
     components: [{
       kind: "AppMenu",
-      components: [{
+      components: [/*{
         caption: "Preferences", 
         onclick: "showPreferences"
-      }, {
+      },*/ {
         caption: "Files", 
         onclick: "showFiles"
       }]
@@ -73,13 +73,12 @@
         }
 
         ui.setCurrentValue(currentValue);
-        
         //store calculator state
         if (this.file) {
           this.file.state = _.extend(this.file.state, {
             html: this.$.ui.getHtml(),
             currentValue: calc.currentValue,
-            currentOperation: calc.currentOperation.name,
+            currentOperation: calc.newLine ? "none" : calc.currentOperation.name,
             previousValues: calc.previousValues,
             pendingValue: calc.pendingValue,
             containsDecimal: calc.containsDecimal,
@@ -93,15 +92,19 @@
       }
     },
     fileOpened: function(sender, file) {
-      this.file = file;
-      var state = file.state;
       this.$.pane.selectViewByName("ui");
-      this.$.ui.loadHtml(state.html);
-      this.$.ui.setCurrentValue(state.currentValue.join(''));
-      this.$.ui.setCurrentOperation(Calc.Ulator.operations[state.currentOperation].symbol);
-      this.$.ui.setMemory(state.memory);
-      this.$.ulator.setState(state);
-      this.$.preferences.setPreference("fileName", file.key);
+      if (file) {
+        this.file = file;
+        var state = file.state;
+        this.$.ui.loadHtml(state.html);
+        this.$.ui.setCurrentValue(state.currentValue.join(''));
+        if (!state.currentValue.length && typeof state.pendingValue !== "undefined") {
+          this.$.ui.updateDisplay(state.pendingValue);        
+        }
+        this.$.ui.setMemory(state.memory);
+        this.$.ulator.setState(state);
+        this.$.preferences.setPreference("fileName", file.key);
+      }
     },
     showPreferences: function() {
       this.$.pane.selectViewByName("preferences");
