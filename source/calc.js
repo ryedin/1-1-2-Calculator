@@ -93,6 +93,7 @@
     },
     fileOpened: function(sender, file) {
       this.$.pane.selectViewByName("ui");
+      if (enyo.keyboard.isShowing()) enyo.keyboard.forceHide();
       if (file) {
         this.file = file;
         var state = file.state;
@@ -103,6 +104,7 @@
         }
         this.$.ui.setMemory(state.memory);
         this.$.ulator.setState(state);
+        this.$.ui.setFileName(file.key);
         this.$.preferences.setPreference("fileName", file.key);
       }
     },

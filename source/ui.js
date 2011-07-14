@@ -10,7 +10,8 @@
       currentValue: "",
       currentOperation: "",
       total: "",
-      memory: ""
+      memory: "",
+      fileName: ""
     },
     components: [
       {name: "alertDialog", kind: "ModalDialog", components: [
@@ -22,7 +23,7 @@
       ]}, 
       {name: "slidingPane", kind: "SlidingPane", flex: 1, components: [
         {name: "left", width: "520px", kind:"SlidingView", components: [
-            {kind: "Header", className: "calcheader", content:""},
+            {name: "leftHeader", kind: "Header", className: "calcheader", content:"Current File: (none selected)"},
             {kind: "Scroller", className: "operationsScroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [
                 {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'>0</span>"}, 
@@ -34,7 +35,7 @@
             ]}
         ]},
         {name: "middle", width: "100%", kind:"SlidingView", peekWidth: 50, components: [
-            {kind: "Header", className: "calcheader", content:""},
+            {name: "rightHeader", kind: "Header", className: "calcheader", content:""},
             {kind: "Scroller", flex: 1, components: [
               {name: "tape", kind: "VFlexBox", flex: 1, components: [
                 {name: "tapeScroller", kind: "Scroller", autoVertical: true, autoHorizontal: false,
@@ -86,6 +87,9 @@
       $("#currentValueDiv .value").html(this.currentValue);
       this.alignDecimals();
       this.$.tapeScroller.scrollToBottom();
+    },
+    fileNameChanged: function() {
+      this.$.leftHeader.setContent("Current File: " + this.fileName);
     },
     memoryChanged: function() {
       if (this.memory !== undefined && this.memory !== null) {
