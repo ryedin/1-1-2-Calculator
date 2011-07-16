@@ -44,9 +44,11 @@ enyo.kind({
       }
     });
   },
-  setPreference: function(key, value) {
+  setPreference: function(key, value, cb) {
     this.prefs[key] = value;
-    this.db.save(this.prefs);
+    this.db.save(this.prefs, function(savedDoc) {
+      cb && cb(savedDoc);
+    });
   },
   saveClick: function() {
     this.doSave();
