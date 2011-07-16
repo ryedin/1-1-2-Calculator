@@ -156,8 +156,9 @@
     totalChanged: function() {
       $("#previousValuesDiv .calcset.current")
         .append("<div class='equalsDivider'></div>")
-        .append("<div class='setTotal'>" + this.total + "&nbsp;&nbsp;</div>")
-        .removeClass("current");
+        .append("<div class='setTotal line'><span class='value'>" + this.total + "</span>&nbsp;&nbsp;</div>");
+      this.alignDecimals();
+      $("#previousValuesDiv .calcset.current").removeClass("current");
       $("#previousValuesDiv").append('<div class="calcset current"></div>');
       this.setCurrentValue(this.total);
     }
