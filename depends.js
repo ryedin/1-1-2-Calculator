@@ -9,6 +9,7 @@ enyo.depends(
 
   /* app                 */
   "source/calc.js",
+  "source/dialogs.js",
   "source/ulator.js",
   "source/preferences.js",
   "source/files.js",

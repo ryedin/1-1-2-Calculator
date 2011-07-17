@@ -12,6 +12,9 @@
         caption: "Preferences", 
         onclick: "showPreferences"
       },*/ {
+        caption: "Save As...", 
+        onclick: "saveAs"
+      }, {
         caption: "Files", 
         onclick: "showFiles"
       }]
@@ -110,6 +113,11 @@
         this.$.ui.setFileName(file.key);
         this.$.preferences.setPreference("fileName", file.key);
       }
+    },
+    saveAs: function() {
+      this.$.ui.getInput("Save As...", "Type file name here...", function(fileName) {
+        debugger;
+      });
     },
     showHelp: function() {
       window.open("http://www.1plus1app.com");

@@ -32,18 +32,20 @@
     },
     components: [
       {name: "alertDialog", kind: "ModalDialog", components: [
-        {content: "Oops!"}, 
-        {name: "alertContent", kind: "HtmlContent"}, 
-        {kind: "HFlexBox", pack: "center", components: [
-          {kind: "Button", caption: "OK", onclick: "closeAlert", className: "enyo-button-affirmative"}
+        {kind: "RowGroup", caption: "Oops", components: [
+          {name: "alertContent", kind: "HtmlContent"}, 
+          {kind: "HFlexBox", pack: "center", components: [
+            {kind: "Button", caption: "OK", onclick: "closeAlert"}
+          ]}
         ]}
-        ]},    
+      ]},    
       {name: "confirmDialog", kind: "ModalDialog", components: [
-        {content: ""}, 
-        {name: "confirmContent", kind: "HtmlContent"}, 
-        {kind: "HFlexBox", pack: "center", components: [
-          {kind: "Button", caption: "Cancel", onclick: "confirmCancel", className: "enyo-button-secondary"},
-          {kind: "Button", caption: "OK", onclick: "confirmOK", className: "enyo-button-affirmative"}
+        {kind: "RowGroup", caption: "Confirm", components: [
+          {name: "confirmContent", kind: "HtmlContent"}, 
+          {kind: "HFlexBox", pack: "center", components: [
+            {kind: "Button", caption: "Cancel", onclick: "confirmCancel", className: "enyo-button-secondary"},
+            {kind: "Button", caption: "OK", onclick: "confirmOK", className: "enyo-button-affirmative"}
+          ]}
         ]}
       ]},
       {kind: "PageHeader", content: "Files"},
