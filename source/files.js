@@ -155,6 +155,8 @@
       } else {
         file = {key: fileName};
         file.state = _.clone(emptyState);
+        file.state.currentValue = [];
+        file.state.previousValues = [];
         this.db.save(file, function(savedFile) {
           //remove disabled item if this is the first real file
           if (me.files.length == 1 && me.files[0].disabled) me.files = [];
