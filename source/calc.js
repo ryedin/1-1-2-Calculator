@@ -98,6 +98,7 @@
       }
     },
     fileOpened: function(sender, file) {
+      var me = this;
       this.$.pane.selectViewByName("ui");
       if (enyo.keyboard.isShowing()) enyo.keyboard.forceHide();
       if (file) {
@@ -112,6 +113,15 @@
         this.$.ulator.setState(state);
         this.$.ui.setFileName(file.key);
         this.$.preferences.setPreference("fileName", file.key);
+        if (state.currentValue.length > 0 || state.previousValues.length > 0) {
+          setTimeout(function() {
+            me.$.ui.$.tapeScroller.scrollToBottom();
+          }, 200);
+        } else {
+          setTimeout(function() {
+            me.$.ui.showShim();
+          }, 500);
+        }
       }
     },
     saveAs: function() {

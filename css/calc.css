@@ -97,6 +97,20 @@
 .tapeScroller {
   background-image: url(../images/skins/touchpad1/tile_light_2.png);  
 }
+.tapeShim {
+  background-color: rgb(0,0,0); 
+  opacity: 0.5;
+  width: 100%;
+  min-height: 100%;
+  display: table;
+}
+.tapeShim div {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
 .scrollingArea {
   float: right;
   width: 100%;

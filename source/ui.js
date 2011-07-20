@@ -14,6 +14,7 @@
       fileName: ""
     },
     components: [
+      {kind: "ApplicationEvents", onWindowRotated: "windowRotated"},
       {name: "alertDialog", kind: "ModalDialog", components: [
         {kind: "RowGroup", caption: "Oops", components: [
           {name: "alertContent", kind: "HtmlContent"}, 
@@ -45,7 +46,7 @@
             {name: "leftHeader", kind: "Header", className: "calcheader", content:"Current File: (none selected)"},
             {kind: "Scroller", className: "operationsScroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [
-                {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'>0</span>"}, 
+                {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'></span>"}, 
                 {name: "buttons", className: "buttons", kind: "Calc.UI.Buttons", onButtonClicked: "doButtonClicked"}
               ]}
             ]},
@@ -59,12 +60,13 @@
               {name: "tape", kind: "VFlexBox", flex: 1, components: [
                 {name: "tapeScroller", kind: "Scroller", autoVertical: true, autoHorizontal: false,
                     horizontal: false, className: "enyo-bg tapeScroller", flex: 1, components: [
+                  {name: "tapeShim", className: "tapeShim", content: "<div>This area is called the 'tape'. As you enter your calculations (using the buttons on the left over there) the tape will keep track of your history with clearly formatted equations and sums. You can scroll the tape up and down if it gets longer than the height of the screen. Now start doing some math!</div>"},
                   {kind: "HtmlContent", name: "tapeContent", className: "scrollingArea", content: [
                       '<div id="previousValuesDiv">',
                         '<div class="calcset current"></div>',
                       '</div>',
                       '<div id="currentValueDiv">',
-                        '<span class="value">0</span>',
+                        '<span class="value"></span>',
                         '<span class="operation">&nbsp;&nbsp;</span>',
                       '</div>'
                     ].join('')
@@ -78,6 +80,28 @@
         ]}
       ]}
     ],
+    rendered: function() {
+      var me = this;
+      this.inherited(arguments);
+      setTimeout(function() {
+        me.showShim();
+      }, 50);
+    },
+    windowRotated: function() {
+      var me = this;
+      setTimeout(function() {
+        me.$.tapeScroller.scrollToBottom();
+      }, 50);
+    },
+    hideShim: function() {
+      $("#" + this.getId() + "_tapeShim").hide();
+    },
+    showShim: function() {
+      $("#" + this.getId() + "_tapeShim").show();
+      var height = $("#" + this.getId() + "_tapeScroller").height();
+      $("#" + this.getId() + "_tapeShim").height(height);
+      this.$.tapeScroller.scrollTo(0, 0);
+    },
     alert: function(content) {
       this.$.alertDialog.open();
       $("#" + this.getId() + "_alertContent").html(content);
@@ -140,7 +164,9 @@
       }
       $("#currentValueDiv .value").html(this.currentValue);
       this.alignDecimals();
-      this.$.tapeScroller.scrollToBottom();
+      if (this.currentValue !== "") {
+        this.$.tapeScroller.scrollToBottom();
+      }
     },
     fileNameChanged: function() {
       this.$.leftHeader.setContent("Current File: " + this.fileName);
