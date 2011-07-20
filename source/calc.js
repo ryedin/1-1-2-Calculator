@@ -12,12 +12,18 @@
         caption: "Preferences", 
         onclick: "showPreferences"
       },*/ {
+        caption: "New File...", 
+        onclick: "newFile"
+      }, {
         caption: "Save As...", 
         onclick: "saveAs"
       }, {
-        caption: "Files", 
+        caption: "Manage Files...", 
         onclick: "showFiles"
       }]
+    }, {
+      name: "dialogs",
+      kind: "Calc.Dialogs"
     }, {
       name: "pane", 
       kind: "Pane", 
@@ -94,13 +100,14 @@
         }
       }
       if (calc.error) {
-        ui.alert(calc.error);
+        Calc.dialogs.alert(calc.error);
       }
     },
     fileOpened: function(sender, file) {
       var me = this;
       this.$.pane.selectViewByName("ui");
       if (enyo.keyboard.isShowing()) enyo.keyboard.forceHide();
+      enyo.keyboard.setManualMode(false);
       if (file) {
         this.file = file;
         var state = file.state;
@@ -124,9 +131,33 @@
         }
       }
     },
+    newFile: function() {
+      var me = this;
+      Calc.dialogs.getInput("New File...", "Type file name here...", function(fileName) {
+        me.$.files.newFile(fileName, function(file) {
+          me.$.files.setCurrentFile(file);
+        });
+      });
+    },
     saveAs: function() {
-      this.$.ui.getInput("Save As...", "Type file name here...", function(fileName) {
-        debugger;
+      var me = this;
+      var calc = this.$.ulator;
+      Calc.dialogs.getInput("Save As...", "Type file name here...", function(fileName) {
+        me.$.files.newFile(fileName, function(file) {
+          me.file = file;
+          me.file.state = _.extend(me.file.state, {
+            html: me.$.ui.getHtml(),
+            currentValue: calc.currentValue,
+            currentOperation: calc.newLine ? "none" : calc.currentOperation.name,
+            previousValues: calc.previousValues,
+            pendingValue: calc.pendingValue,
+            containsDecimal: calc.containsDecimal,
+            decimalPlaces: calc.decimalPlaces
+          });
+          me.$.files.saveFile(me.file, function(file) {
+            me.$.files.setCurrentFile(file);
+          });
+        });        
       });
     },
     showHelp: function() {

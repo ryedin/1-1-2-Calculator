@@ -31,44 +31,31 @@
       currentFile: ""
     },
     components: [
-      {name: "alertDialog", kind: "ModalDialog", components: [
-        {kind: "RowGroup", caption: "Oops", components: [
-          {name: "alertContent", kind: "HtmlContent"}, 
-          {kind: "HFlexBox", pack: "center", components: [
-            {kind: "Button", caption: "OK", onclick: "closeAlert"}
-          ]}
-        ]}
-      ]},    
-      {name: "confirmDialog", kind: "ModalDialog", components: [
-        {kind: "RowGroup", caption: "Confirm", components: [
-          {name: "confirmContent", kind: "HtmlContent"}, 
-          {kind: "HFlexBox", pack: "center", components: [
-            {kind: "Button", caption: "Cancel", onclick: "confirmCancel", className: "enyo-button-secondary"},
-            {kind: "Button", caption: "OK", onclick: "confirmOK", className: "enyo-button-affirmative"}
-          ]}
-        ]}
-      ]},
       {kind: "PageHeader", content: "Files"},
-      {kind: "VFlexBox",
+      {kind: "Scroller", autoVertical: true, autoHorizontal: false, horizontal: false, flex: 1, 
         components: [
-          {kind: "RowGroup", caption: "Create New File", components: [
-            {kind: "Input", hint: "type new file name here...", name: "newFile", spellcheck: false, components: [
-              {kind: "Button", caption: "Create", onclick: "newFileClick", className: "enyo-button-affirmative"}
-            ]}
-          ]},
-          {kind: "RowGroup", caption: "Open/Delete Existing File", components: [
-            {kind: "VirtualRepeater", name: "fileList", onSetupRow: "setupFileRow", components: [
-              {kind: "Item", components: [
-                {kind: "Input", disabled: true, name: "input", components: [
-                  {kind: "Button", name: "deleteBtn", caption: "Delete", onclick: "deleteFileClick", className: "enyo-button-negative"},
-                  {kind: "Button", name: "openBtn", caption: "Open", onclick: "openFileClick", className: "enyo-button-affirmative"}
+        {kind: "VFlexBox", 
+          components: [          
+              {kind: "RowGroup", caption: "Create New File", components: [
+                {kind: "Input", hint: "type new file name here...", name: "newFile", spellcheck: false, components: [
+                  {kind: "Button", caption: "Create", onclick: "newFileClick", className: "enyo-button-affirmative"}
                 ]}
-              ]}
-            ]}
-          ]},
-          {kind: "HFlexBox", pack: "end", style: "padding: 0 10px;",
-            components: [
-              {name: "cancelButton", kind: "Button", content: "Cancel", onclick: "cancelClick", className: "enyo-tool-button-client enyo-tool-button-captioned"}
+              ]},
+              {kind: "RowGroup", caption: "Open/Delete Existing File", components: [
+                {kind: "VirtualRepeater", name: "fileList", onSetupRow: "setupFileRow", components: [
+                  {kind: "Item", components: [
+                    {kind: "Input", disabled: true, name: "input", components: [
+                      {kind: "Button", name: "deleteBtn", caption: "Delete", onclick: "deleteFileClick", className: "enyo-button-negative"},
+                      {kind: "Button", name: "openBtn", caption: "Open", onclick: "openFileClick", className: "enyo-button-affirmative"}
+                    ]}
+                  ]}
+                ]}
+              ]},
+              {kind: "HFlexBox", pack: "end", style: "padding: 0 10px;",
+                components: [
+                  {name: "cancelButton", kind: "Button", content: "Cancel", onclick: "cancelClick", className: "enyo-tool-button-client enyo-tool-button-captioned"}
+                ]
+              }
             ]
           }
         ]
@@ -107,33 +94,20 @@
       });
     },
     saveFile: function(file, cb) {
+      var me = this;
+      var existingFile = _.find(this.files, function(_file) {
+        return _file.key.toLowerCase() === file.key.toLowerCase();
+      });
       this.db.save(file, function(savedFile) {
+        if (!existingFile) {
+          //remove disabled item if this is the first real file
+          if (me.files.length == 1 && me.files[0].disabled) me.files = [];
+          me.files.push(savedFile);
+          me.$.fileList.render();
+        }
         cb && cb(savedFile);
       });
     },
-    alert: function(content) {
-      this.$.alertDialog.open();
-      $("#" + this.getId() + "_alertContent").html(content);
-    },
-    closeAlert: function() {
-      this.$.alertDialog.close();
-    },
-    confirm: function(content, cb) {
-      this.$.confirmDialog.open();
-      $("#" + this.getId() + "_confirmContent").html(content);
-      this.confirmCallback = cb;
-    },
-    confirmOK: function() {
-      this.$.confirmDialog.close();
-      if (typeof this.confirmCallback === "function") {
-        this.confirmCallback();
-        delete this.confirmCallback;
-      }
-    },
-    confirmCancel: function() {
-      this.$.confirmDialog.close();
-      delete this.confirmCallback;
-    },  
     setupFileRow: function(sender, index) {
       var file = this.files ? this.files[index] : null;
       if (file) {
@@ -149,29 +123,33 @@
     newFileClick: function() {
       var me = this;
       var fileName = this.$.newFile.getValue();
+      this.newFile(fileName, function(file) {
+        me.setCurrentFile(file);
+      });
+    },
+    newFile: function(fileName, cb) {
+      var me = this;
       var file = _.find(this.files, function(_file) {
         return _file.key.toLowerCase() === fileName.toLowerCase();
       });
       if (file) {
-        this.alert("A file already exists with that name.");
+        Calc.dialogs.alert("A file already exists with that name.");
       } else {
         file = {key: fileName};
-        file.state = _.clone(emptyState);
-        file.state.currentValue = [];
-        file.state.previousValues = [];
-        this.db.save(file, function(savedFile) {
-          //remove disabled item if this is the first real file
-          if (me.files.length == 1 && me.files[0].disabled) me.files = [];
-          me.files.push(savedFile);
-          me.$.fileList.render();
-          me.setCurrentFile(savedFile);
-        });
+        file.state = this.getEmptyState();
+        this.saveFile(file, cb);
       }
+    },
+    getEmptyState: function() {
+      var state = _.clone(emptyState);
+      state.currentValue = [];
+      state.previousValues = [];
+      return state;
     },
     deleteFileClick: function(sender, evt) {
       var me = this;
       var file = this.files[evt.rowIndex];
-      me.confirm("Are you sure you want to delete file '" + file.key + "'?", function() {
+      Calc.dialogs.confirm("Are you sure you want to delete file '" + file.key + "'?", function() {
         me.db.remove(file.key, function() {
           me.loadFiles();
         });

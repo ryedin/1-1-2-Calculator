@@ -31,6 +31,10 @@
         ]}
       ]}
     ],
+    create: function() {
+      this.inherited(arguments);
+      Calc.dialogs = this;
+    },
     alert: function(content) {
       this.$.alertDialog.open();
       $("#" + this.getId() + "_alertContent").html(content);
