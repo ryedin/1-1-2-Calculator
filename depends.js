@@ -13,7 +13,9 @@ enyo.depends(
   "source/ulator.js",
   "source/preferences.js",
   "source/files.js",
+  "source/skins.js",
   "source/ui.js",
   "source/buttons.js",
-  "css/calc.css"
+  "css/calc.css",
+  "skins/black/skin.css"
 );

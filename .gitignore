@@ -4,3 +4,4 @@ temp.txt
 packages/*
 *.sublime-project
 zq_ubuntu_laptop_for_personal_ec2.pem
+app/*

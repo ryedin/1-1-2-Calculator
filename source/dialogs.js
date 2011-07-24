@@ -23,7 +23,7 @@
       ]},    
       {name: "inputDialog", kind: "ModalDialog", components: [
         {kind: "RowGroup", name: "inputDialogGroup", caption: "", components: [
-          {kind: "Input", hint: "", name: "inputDialogInput", spellcheck: false},
+          {kind: "Input", hint: "", name: "inputDialogInput", spellcheck: false, onfocus: "inputFocused"},
           {kind: "HFlexBox", pack: "center", components: [
             {kind: "Button", caption: "Cancel", onclick: "inputDialogCancel", className: "enyo-button-secondary"},
             {kind: "Button", caption: "OK", onclick: "inputDialogOK", className: "enyo-button-affirmative"}
@@ -72,10 +72,15 @@
         this.inputCallback(value);
         delete this.inputCallback;
       }
+      if (enyo.keyboard.isShowing()) enyo.keyboard.forceHide();
     },
     inputDialogCancel: function() {
       this.$.inputDialog.close();
       delete this.inputCallback;
+      if (enyo.keyboard.isShowing()) enyo.keyboard.forceHide();
+    },
+    inputFocused: function() {
+      if (!enyo.keyboard.isShowing()) enyo.keyboard.forceShow();
     }
   });
 

@@ -1,53 +1,31 @@
 (function() {
   
-  var emptyState = {
-    html: [
-      '<div id="previousValuesDiv">',
-        '<div class="calcset current"></div>',
-      '</div>',
-      '<div id="currentValueDiv">',
-        '<span class="value">0</span>',
-        '<span class="operation">&nbsp;&nbsp;</span>',
-      '</div>'
-    ].join(''),
-    currentValue: [],
-    currentOperation: "none",
-    previousValues: [],
-    pendingValue: null,
-    containsDecimal: false,
-    decimalPlaces: 0,
-    memory: null
-  };
-  var noFiles = [{key: "No files found...", disabled: true}];
+  var skins =[
+
+  ];
 
   enyo.kind({
-    name: "Calc.Files",
+    name: "Calc.Skins",
     kind: enyo.VFlexBox,
     events: {
       onCancel: "",
-      onFileSelected: ""
+      onSkinSelected: ""
     },
     published: {
-      currentFile: ""
+      currentSkin: ""
     },
     components: [
-      {kind: "PageHeader", content: "Files"},
+      {kind: "PageHeader", content: "Skins"},
       {kind: "Scroller", autoVertical: true, autoHorizontal: false, horizontal: false, flex: 1, 
         className: "subPanel",
         components: [
         {kind: "VFlexBox", 
-          components: [          
-              {kind: "RowGroup", caption: "Create New File", components: [
-                {kind: "Input", hint: "type new file name here...", name: "newFile", spellcheck: false, components: [
-                  {kind: "Button", caption: "Create", onclick: "newFileClick", className: "enyo-button-affirmative"}
-                ]}
-              ]},
-              {kind: "RowGroup", caption: "Open/Delete Existing File", components: [
-                {kind: "VirtualRepeater", name: "fileList", onSetupRow: "setupFileRow", components: [
+          components: [    
+              {kind: "RowGroup", caption: "Choose a skin", components: [
+                {kind: "VirtualRepeater", name: "skinList", onSetupRow: "setupSkinRow", components: [
                   {kind: "Item", components: [
                     {kind: "Input", disabled: true, name: "input", components: [
-                      {kind: "Button", name: "deleteBtn", caption: "Delete", onclick: "deleteFileClick", className: "enyo-button-negative"},
-                      {kind: "Button", name: "openBtn", caption: "Open", onclick: "openFileClick", className: "enyo-button-affirmative"}
+                      {kind: "Button", name: "openBtn", caption: "Open", onclick: "openSkinClick", className: "enyo-button-affirmative"}
                     ]}
                   ]}
                 ]}

@@ -4,9 +4,10 @@
 	<title>1+1=2 Feature Calculator</title>
 	<script src="enyo/0.10/framework/enyo.js" type="text/javascript"></script>
 </head>
-<body>  
+<body>
+  <div id="mainContainer" class="enyo-fit mainContainer skin_black"></div>
 	<script type="text/javascript">
-	  new Calc.Main().renderInto(document.body);
+	  new Calc.Main().renderInto($("#mainContainer")[0]);
 	</script>
 </body>
 </html>

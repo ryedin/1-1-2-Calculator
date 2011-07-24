@@ -30,19 +30,19 @@
       flex: 1,
       components: [{
         name: "ui",
-        className: "enyo-bg",
+        className: "calc-bg",
         kind: "Calc.UI",
         onButtonClicked: "calcButtonClicked"
       }, {
         name: "preferences",
-        className: "enyo-bg",
+        className: "calc-bg",
         kind: "Calc.Preferences",
         onPreferencesLoaded: "preferencesLoaded",
         onSave: "preferencesSaved",
         onCancel: "childPaneCanceled"
       }, {
         name: "files",
-        className: "enyo-bg",
+        className: "calc-bg",
         kind: "Calc.Files",
         onCancel: "childPaneCanceled",
         onFileSelected: "fileOpened"
@@ -107,7 +107,6 @@
       var me = this;
       this.$.pane.selectViewByName("ui");
       if (enyo.keyboard.isShowing()) enyo.keyboard.forceHide();
-      enyo.keyboard.setManualMode(false);
       if (file) {
         this.file = file;
         var state = file.state;

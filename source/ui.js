@@ -18,7 +18,7 @@
       {name: "slidingPane", kind: "SlidingPane", flex: 1, components: [
         {name: "left", width: "520px", kind:"SlidingView", components: [
             {name: "leftHeader", kind: "Header", className: "calcheader", content:"Current File: (none selected)"},
-            {kind: "Scroller", className: "operationsScroller", flex: 1, components: [
+            {className: "operationsScroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [
                 {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'></span>"}, 
                 {name: "buttons", className: "buttons", kind: "Calc.UI.Buttons", onButtonClicked: "doButtonClicked"}
@@ -33,7 +33,7 @@
             {kind: "Scroller", flex: 1, components: [
               {name: "tape", kind: "VFlexBox", flex: 1, components: [
                 {name: "tapeScroller", kind: "Scroller", autoVertical: true, autoHorizontal: false,
-                    horizontal: false, className: "enyo-bg tapeScroller", flex: 1, components: [
+                    horizontal: false, className: "tapeScroller", flex: 1, components: [
                   {name: "tapeShim", className: "tapeShim", content: "<div>This area is called the 'tape'. As you enter your calculations (using the buttons on the left over there) the tape will keep track of your history with clearly formatted equations and sums. You can scroll the tape up and down if it gets longer than the height of the screen. Now start doing some math!</div>"},
                   {kind: "HtmlContent", name: "tapeContent", className: "scrollingArea", content: [
                       '<div id="previousValuesDiv">',
@@ -57,12 +57,23 @@
     rendered: function() {
       var me = this;
       this.inherited(arguments);
+      this.setOrientationClass();
       setTimeout(function() {
         me.showShim();
       }, 50);
     },
+    setOrientationClass: function () {
+      var width = $(document.body).width();
+      var vertical = width === 768;
+      if (vertical) {
+        $(document.body).addClass("vertical");
+      } else {
+        $(document.body).removeClass("vertical");
+      }
+    },
     windowRotated: function() {
       var me = this;
+      this.setOrientationClass();
       setTimeout(function() {
         me.$.tapeScroller.scrollToBottom();
       }, 50);

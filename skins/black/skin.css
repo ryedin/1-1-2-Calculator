@@ -1,0 +1,20 @@
+.skin_black {
+  background-image: url(horizontal.png);  
+}
+.vertical .skin_black {
+  background-image: url(vertical.png);  
+}
+.skin_black .tapeShim {
+  color: orange;
+}
+.skin_black .tapeScroller {
+  background-color: rgb(0,0,0); 
+  opacity: 0.7;
+}
+.skin_black .subPanel {
+  background-image: url(tile_light_2.png); 
+}
+.skin_black .equalsDivider {
+  border-color: green;
+  background-color: green;
+}

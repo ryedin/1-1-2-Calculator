@@ -1,9 +1,9 @@
-@font-face {
-  font-family: 'LCD';
-  src: url(../fonts/LCDMonoWinTT/LCDM2N__.TTF);
+.mainContainer {
+  background-position: 0px 30px;
+  background-repeat: no-repeat;
 }
-.enyo-bg {
-  background-image: url(../images/skins/touchpad1/tile_light_2.png); 
+.calc-bg .enyo-bg {
+  background-color: transparent; 
 }
 .enyo-input-input {
   color: #ccc;
@@ -22,15 +22,11 @@
 .calcheader .enyo-header-inner {
   padding: 5px 15px;
 }
-.operationsScroller {
-  background-image: url(../images/skins/touchpad1/left_large_tile_2.png);  
-}
 .operationsArea {
   padding-left: 12px;
   padding-right: 10px;
   padding-bottom: 10px;
   padding-top: 9px;
-  background-image: url(../images/skins/touchpad1/full_off_2.png);
   background-repeat: no-repeat;
 }
 .operationsArea .buttons {
@@ -42,35 +38,6 @@
   width: 95px;
   height: 85px;
 }
-/* rows -------------------------------------*/
-/*.operationsArea .calcbutton.row2 {
-  background-position-y: -86px;
-}
-.operationsArea .calcbutton.row3 {
-  background-position-y: -172px;
-}
-.operationsArea .calcbutton.row4 {
-  background-position-y: -258px;
-}
-.operationsArea .calcbutton.row5 {
-  background-position-y: -344px;
-}
-/* columns -----------------------------------*/
-/*.operationsArea .calcbutton.col2 {
-  background-position-x: -95px;
-  width: 94px;
-}
-.operationsArea .calcbutton.col3 {
-  background-position-x: -189px;
-  width: 93px;
-}
-.operationsArea .calcbutton.col4 {
-  background-position-x: -283px;
-  width: 95px;
-}
-.operationsArea .calcbutton.col5 {
-  background-position-x: -379px;
-}*/
 .display {
   font-family: verdana;
   font-size: 20px;
@@ -91,15 +58,12 @@
   right: 30px;
   font-size: 28px;
   font-weight: bold;
-  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
   color: #999;
 }
 .tapeScroller {
-  background-image: url(../images/skins/touchpad1/tile_light_2.png);  
+  background-repeat: no-repeat;
 }
 .tapeShim {
-  background-color: rgb(0,0,0); 
-  opacity: 0.5;
   width: 100%;
   min-height: 100%;
   display: table;
@@ -115,7 +79,6 @@
   float: right;
   width: 100%;
   padding: 20px;
-  background-image: url(../images/skins/touchpad1/tile_light_2.png);
 }
 .scrollingArea div {
   text-align: right;
@@ -153,13 +116,11 @@
   font-weight: bold;
   font-size: 12px;
   color: orange;
-  text-shadow:0px -1px 0px rgba(0,0,0, .6), 1px 1px 2px rgba(255,255,255, 0.6);
   z-index: 10;
 }
 #memDiv span {
   font-size: 10px;
   padding-left: 5px;
   color: #666;
-  text-shadow: none;
   font-weight: normal;
 }
