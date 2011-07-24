@@ -11,7 +11,8 @@
       currentOperation: "",
       total: "",
       memory: "",
-      fileName: ""
+      fileName: "",
+      skinName: ""
     },
     components: [
       {kind: "ApplicationEvents", onWindowRotated: "windowRotated"}, 
@@ -70,6 +71,13 @@
       } else {
         $(document.body).removeClass("vertical");
       }
+    },
+    skinNameChanged: function() {
+      if (this.currentSkin) {
+        $("#mainContainer").removeClass(this.currentSkin);
+      }
+      $("#mainContainer").addClass(this.skinName);
+      this.currentSkin = this.skinName;
     },
     windowRotated: function() {
       var me = this;

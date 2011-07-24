@@ -1,0 +1,26 @@
+.skin_grey {
+  background-image: url(horizontal.png);  
+}
+.vertical .skin_grey {
+  background-image: url(vertical.png);  
+}
+.skin_grey .tapeShim {
+  color: orange;
+}
+.skin_grey .tapeScroller {
+  background-color: rgb(0,0,0); 
+  opacity: 0.7;
+}
+.skin_grey .subPanel {
+  background-image: url(tile_light_2.png); 
+}
+.skin_grey .equalsDivider {
+  border-color: green;
+  background-color: green;
+}
+.skin_grey #displayVal {  
+  color: #222;
+}
+.skin_grey #memDiv span {
+  color: #222;
+}

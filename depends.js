@@ -17,5 +17,6 @@ enyo.depends(
   "source/ui.js",
   "source/buttons.js",
   "css/calc.css",
-  "skins/black/skin.css"
+  "skins/black/skin.css",
+  "skins/grey/skin.css"
 );

@@ -12,6 +12,9 @@
         caption: "Preferences", 
         onclick: "showPreferences"
       },*/ {
+        caption: "Change Skin", 
+        onclick: "showSkins"
+      }, {
         caption: "New File...", 
         onclick: "newFile"
       }, {
@@ -46,6 +49,12 @@
         kind: "Calc.Files",
         onCancel: "childPaneCanceled",
         onFileSelected: "fileOpened"
+      }, {
+        name: "skins",
+        className: "calc-bg",
+        kind: "Calc.Skins",
+        onCancel: "childPaneCanceled",
+        onSkinSelected: "skinSelected"
       }]
     }, {
       name: "ulator",
@@ -168,11 +177,18 @@
     showFiles: function() {
       this.$.pane.selectViewByName("files");
     },
+    showSkins: function() {
+      this.$.pane.selectViewByName("skins");
+    },
     preferencesLoaded: function(sender, preferences) {
       this.$.files.loadFile(preferences.fileName);
     },
     preferencesSaved: function() {
         // handle the button click
+    },
+    skinSelected: function(sender, skin) {
+      this.$.pane.selectViewByName("ui");
+      this.$.ui.setSkinName(skin.cssName);
     },
     childPaneCanceled: function() {
       this.$.pane.selectViewByName("ui");
