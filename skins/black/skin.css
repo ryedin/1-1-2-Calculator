@@ -18,3 +18,9 @@
   border-color: green;
   background-color: green;
 }
+.skin_black #displayVal {  
+  color: #ccc;
+}
+.skin_black #memDiv span {
+  color: #ccc;
+}

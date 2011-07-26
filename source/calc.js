@@ -182,6 +182,7 @@
     },
     preferencesLoaded: function(sender, preferences) {
       this.$.files.loadFile(preferences.fileName);
+      if (preferences.skinName) this.$.ui.setSkinName(preferences.skinName);
     },
     preferencesSaved: function() {
         // handle the button click
@@ -189,6 +190,7 @@
     skinSelected: function(sender, skin) {
       this.$.pane.selectViewByName("ui");
       this.$.ui.setSkinName(skin.cssName);
+      this.$.preferences.setPreference("skinName", skin.cssName);
     },
     childPaneCanceled: function() {
       this.$.pane.selectViewByName("ui");

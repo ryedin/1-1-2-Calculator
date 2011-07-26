@@ -25,9 +25,7 @@
                 {name: "buttons", className: "buttons", kind: "Calc.UI.Buttons", onButtonClicked: "doButtonClicked"}
               ]}
             ]},
-            {kind: "Toolbar", components: [
-              {kind: "GrabButton"}
-            ]}
+            {kind: "Toolbar", components: []}
         ]},
         {name: "middle", width: "100%", kind:"SlidingView", peekWidth: 50, components: [
             {name: "rightHeader", kind: "Header", className: "calcheader", content:""},

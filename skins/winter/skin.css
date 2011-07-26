@@ -1,0 +1,38 @@
+.skin_winter {
+  background-image: url(horizontal.png);  
+}
+.vertical .skin_winter {
+  background-image: url(vertical.png);  
+}
+.skin_winter .tapeShim {
+  color: orange;
+}
+.skin_winter .tapeScroller {
+  background-color: rgb(0,0,0); 
+  opacity: 0.8;
+}
+.skin_winter .subPanel {
+  background-image: url(tile_light_2.png); 
+}
+.skin_winter .scrollingArea div {
+  color: white;
+}
+.skin_winter .operation {
+  color: red;
+}
+.skin_winter .setTotal {
+  color: green !important;
+}
+.skin_winter .equalsDivider {
+  border: solid 1px green;
+  background-color: green;
+}
+.skin_winter #displayVal {  
+  color: #222;
+}
+.skin_winter #memDiv {
+  color: blue;
+}
+.skin_winter #memDiv span {
+  color: #222;
+}

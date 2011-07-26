@@ -1,0 +1,38 @@
+.skin_flower {
+  background-image: url(horizontal.png);  
+}
+.vertical .skin_flower {
+  background-image: url(vertical.png);  
+}
+.skin_flower .tapeShim {
+  color: orange;
+}
+.skin_flower .tapeScroller {
+  background-color: rgb(0,0,0); 
+  opacity: 0.8;
+}
+.skin_flower .subPanel {
+  background-image: url(tile_light_2.png); 
+}
+.skin_flower .scrollingArea div {
+  color: white;
+}
+.skin_flower .operation {
+  color: red;
+}
+.skin_flower .setTotal {
+  color: green !important;
+}
+.skin_flower .equalsDivider {
+  border: solid 1px green;
+  background-color: green;
+}
+.skin_flower #displayVal {  
+  color: #222;
+}
+.skin_flower #memDiv {
+  color: blue;
+}
+.skin_flower #memDiv span {
+  color: #222;
+}

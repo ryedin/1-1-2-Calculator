@@ -2,7 +2,16 @@
   
   var skins = [
     {name: "Black", cssName: "skin_black"},
-    {name: "Grey", cssName: "skin_grey"}
+    {name: "Grey", cssName: "skin_grey"},
+    {name: "White", cssName: "skin_white"},
+    {name: "White (with black buttons)", cssName: "skin_white_blk"},
+    {name: "Spring", cssName: "skin_spring"},
+    {name: "Summer", cssName: "skin_summer"},
+    {name: "Autumn", cssName: "skin_fall"},
+    {name: "Winter", cssName: "skin_winter"},
+    {name: "Sky", cssName: "skin_sky"},
+    {name: "Flower", cssName: "skin_flower"},
+    {name: "Legal Pad", cssName: "skin_legal"}
   ];
 
   enyo.kind({
