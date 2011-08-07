@@ -34,6 +34,8 @@ enyo.kind({
     //this.db.nuke();
     
     this.loadPreferences();  
+
+    Calc.preferences = this;
   },
   loadPreferences: function() {
     var me = this;

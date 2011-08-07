@@ -6,6 +6,8 @@ enyo.depends(
   "source/lib/Lawnchair/adaptors/LawnchairAdaptorHelpers.js",
   "source/lib/Lawnchair/adaptors/WebkitSQLiteAdaptor.js",
   "source/lib/Lawnchair/Lawnchair.js",
+  "source/lib/BigDecimal/mathcontext.js",
+  "source/lib/BigDecimal/bigdecimal.js",
 
   /* app                 */
   "source/calc.js",

@@ -124,3 +124,14 @@
   color: #666;
   font-weight: normal;
 }
+.alertPrefContainer {
+  height: 30px;
+}
+.alertPrefContainer div {
+  float: left;
+}
+.alertPrefText {
+  font-size: 12px;
+  padding: 7px;
+  padding-left: 20px;
+}

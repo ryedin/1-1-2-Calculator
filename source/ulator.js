@@ -7,6 +7,22 @@
     var correction = Math.pow(10, precision);
     return Math.round(correction * number) / correction;
   }
+
+  //default (no rounding)
+  var mathContext = new MathContext(
+    21,
+    MathContext.prototype.DEFAULT_FORM,
+    false,
+    MathContext.prototype.ROUND_UNNECESSARY
+  );
+
+  //rounding enabled
+  var mathContextRounding = new MathContext(
+    21,
+    MathContext.prototype.DEFAULT_FORM,
+    false,
+    MathContext.prototype.DEFAULT_ROUNDINGMODE
+  );
   
   enyo.kind({
     name: "Calc.Ulator",
@@ -20,6 +36,8 @@
       this.currentOperation = Calc.Ulator.operations.none;
       this.containsDecimal = false;
       this.inherited(arguments);
+
+      Calc.ulator = this;
     },
     stateChanged: function() {
       var me = this;
@@ -116,8 +134,9 @@
     },
     getCurrentValue: function() {
       if (this.currentValue.length > 0) {
-        var retVal = eval(this.currentValue.join(""));
-        retVal = correctFloatingPointError(retVal, 10);
+        // var retVal = eval(this.currentValue.join(""));
+        // retVal = correctFloatingPointError(retVal, 10);
+        var retVal = this.currentValue.join("");
         return retVal;
       }
       return 0;
@@ -132,8 +151,9 @@
           (this.currentOperation && this.currentOperation !== Calc.Ulator.operations.none &&
           this.currentOperation !== Calc.Ulator.operations.equals)) {
         var val = this.currentOperation.fn(this.pendingValue, this.getCurrentValue());
+        val = val.toString();
         if (!isNaN(val)) {
-          val = correctFloatingPointError(val, 10);
+          //val = correctFloatingPointError(val, 10);
           this.previousValues[0] = val;
           this.pendingValue = val;
           this.currentValue = [];
@@ -212,7 +232,10 @@
             && this.previousValues.length > 0) {
           times = this.getPreviousValue();
         }
-        val = correctFloatingPointError((val / 100) * times, 10);
+        // val = correctFloatingPointError((val / 100) * times, 10);
+        val = new BigDecimal(val)
+          .divide(new BigDecimal("100"), mathContext)
+          .multiply(new BigDecimal(times), mathContext);
         this.currentValue = val.toString().split("");
       }
     },
@@ -230,7 +253,9 @@
     plusmn: function() {
       if (this.currentValue.length == 0) {
         if (this.previousValues.length > 0) {
-          this.currentValue = (eval("(" + this.getPreviousValue() + ") * -1")).toString().split("");
+          this.currentValue = Calc.Ulator.operations.multiply.fn(this.getPreviousValue(), "-1")
+            .toString()
+            .split("");
         } else {
           this.currentValue.push("-");
         }
@@ -256,15 +281,13 @@
     },
     mPlus: function() {
       var mem = this.currentValue.length > 0 ? this.getCurrentValue() : (this.previousValues.length > 0 ? this.getPreviousValue() : this.getCurrentValue());
-      this.memory = this.hasMemory ? this.memory + mem : mem;
-      //this.memory = correctFloatingPointError(this.memory, 10);
+      this.memory = Calc.Ulator.operations.add.fn(this.hasMemory ? this.memory : "0", mem).toString();
       this.hasMemory = true;
       this.newMemory = true;
     },
     mMinus: function() {
       var mem = this.currentValue.length > 0 ? this.getCurrentValue() : (this.previousValues.length > 0 ? this.getPreviousValue() : this.getCurrentValue());
-      this.memory = this.hasMemory ? this.memory - mem : (0 - mem);
-      //this.memory = correctFloatingPointError(this.memory, 10);
+      this.memory = Calc.Ulator.operations.subtract.fn(this.hasMemory ? this.memory : "0", mem).toString();
       this.hasMemory = true;
       this.newMemory = true;
     },
@@ -302,28 +325,62 @@
       name: "add",
       symbol: "+",
       fn: function(a, b) {
-        return eval("(" + a + ") + (" + b + ")");
+        a = new BigDecimal(a);
+        b = new BigDecimal(b);
+        try {
+          var ret = a.add(b, mathContext);
+        } catch (ex) {
+          ret = a.add(b, mathContextRounding);
+          Calc.dialogs.prefAlert("roundingWarning");
+        }
+        return ret;
       }
     },
     subtract: {
       name: "subtract",
       symbol: "-",
       fn: function(a, b) {
-        return eval("(" + a + ") - (" + b + ")");
+        a = new BigDecimal(a);
+        b = new BigDecimal(b);
+        try {
+          var ret = a.subtract(b, mathContext);
+        } catch (ex) {
+          ret = a.subtract(b, mathContextRounding);
+          Calc.dialogs.prefAlert("roundingWarning");
+        }
+        return ret;
       }
     },
     multiply: {
       name: "multiply",
       symbol: "x",
       fn: function(a, b) {
-        return eval("(" + a + ") * (" + b + ")");
+        a = new BigDecimal(a);
+        b = new BigDecimal(b);
+        try {
+          var ret = a.multiply(b, mathContext);
+        } catch (ex) {
+          ret = a.multiply(b, mathContextRounding);
+          Calc.dialogs.prefAlert("roundingWarning");
+        }
+        return ret;
       }
     },
     divide: {
       name: "divide",
       symbol: "&divide;",
       fn: function(a, b) {
-        if (eval(b) != 0) { return eval("(" + a + ") / (" + b + ")"); }
+        if (eval(b) != 0) { 
+          a = new BigDecimal(a);
+          b = new BigDecimal(b);
+          try {
+            var ret = a.divide(b, mathContext);
+          } catch (ex) {
+            ret = a.divide(b, mathContextRounding);
+            Calc.dialogs.prefAlert("roundingWarning");
+          }
+          return ret;
+        }
         return "Cannot divide by zero.";
       }
     }

@@ -38,7 +38,7 @@
         {kind: "VFlexBox", 
           components: [          
               {kind: "RowGroup", caption: "Create New File", components: [
-                {kind: "Input", hint: "type new file name here...", name: "newFile", spellcheck: false, components: [
+                {kind: "Input", hint: "type new file name here...", name: "newFile", spellcheck: false, onfocus: "onNewFileFocus", components: [
                   {kind: "Button", caption: "Create", onclick: "newFileClick", className: "enyo-button-affirmative"}
                 ]}
               ]},
@@ -72,7 +72,9 @@
       //for testing...
       //me.db.nuke();
 
-      me.loadFiles();      
+      me.loadFiles();     
+      
+      Calc.files = this; 
     },
     currentFileChanged: function() {
       this.doFileSelected(this.currentFile);
@@ -119,6 +121,10 @@
         }
         return true;
       }
+    },
+    onNewFileFocus: function() {
+      if (!enyo.keyboard.isShowing()) enyo.keyboard.forceShow();
+      enyo.keyboard.setManualMode(false);
     },
     newFileClick: function() {
       var me = this;

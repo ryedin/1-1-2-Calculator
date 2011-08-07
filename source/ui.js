@@ -53,6 +53,10 @@
         ]}
       ]}
     ],
+    create: function() {
+      this.inherited(arguments);
+      Calc.ui = this;
+    },
     rendered: function() {
       var me = this;
       this.inherited(arguments);
@@ -105,11 +109,15 @@
       $("#currentValueDiv .operation").html("&nbsp;&nbsp;");
     },
     updateDisplay: function(value) {
-      $("#displayVal").html(value);
+      var displayVal = value;
+      if (displayVal.length > 21) {
+        displayVal = displayVal.substr(0, 21) + "...";
+      }
+      $("#displayVal").html(displayVal);
     },
     currentValueChanged: function() {
       if (this.currentValue !== "") {
-        $("#displayVal").html(this.currentValue);
+        this.updateDisplay(this.currentValue);
       }
       $("#currentValueDiv .value").html(this.currentValue);
       this.alignDecimals();
