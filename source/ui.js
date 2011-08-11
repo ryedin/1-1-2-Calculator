@@ -4,7 +4,8 @@
     name: "Calc.UI",
     kind: enyo.VFlexBox,
     events: {
-      onButtonClicked: ""
+      onButtonClicked: "",
+      onBackspaceClicked: ""
     },
     published: {
       currentValue: "",
@@ -21,11 +22,18 @@
             {name: "leftHeader", kind: "Header", className: "calcheader", content:"Current File: (none selected)"},
             {className: "operationsScroller", flex: 1, components: [
               {name: "operations", kind: "VFlexBox", flex: 1, className: "operationsArea", components: [
-                {name: "display", className: "display", kind: "HtmlContent", content: "<div id='memDiv' class='hidden'>M<span id='memVal'></span></div><span id='displayVal'></span>"}, 
+                {name: "display", className: "display", kind: "HtmlContent", 
+                  content: [
+                    "<div id='memDiv' class='hidden'>M",
+                      "<span id='memVal'></span>",
+                    "</div>",
+                    "<span id='displayVal'></span>"
+                  ].join("")}, 
+                {kind: "IconButton", name: "backspaceBtn", className: "enyo-button-dark backspaceBtn", icon: "skins/common/menu-icon-back.png", onclick: "doBackspaceClicked"},
                 {name: "buttons", className: "buttons", kind: "Calc.UI.Buttons", onButtonClicked: "doButtonClicked"}
               ]}
             ]},
-            {kind: "Toolbar", components: []}
+            {kind: "Toolbar", pack: "right", components: []}
         ]},
         {name: "middle", width: "100%", kind:"SlidingView", peekWidth: 50, components: [
             {name: "rightHeader", kind: "Header", className: "calcheader", content:""},

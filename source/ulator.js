@@ -82,6 +82,9 @@
         }
       } else {
         switch (val) {
+          case "backspace":
+            this.backspace();
+            break;
           case "+":
             this.add();
             break;
@@ -181,6 +184,15 @@
       this.currentValue = ["0"];
       this.containsDecimal = false;
       this.decimalPlaces = 0;
+    },
+    backspace: function() {
+      if (this.currentValue.length) {
+        this.currentValue.pop();
+        if (this.currentValue.length == 0) this.currentValue = ["0"];
+        var currValStr = this.currentValue.join("");
+        this.containsDecimal = currValStr.indexOf(".") > -1;
+        if (this.decimalPlaces) this.decimalPlaces--;
+      }
     },
     add: function() {
       if (this.finishPendingOperation()) {

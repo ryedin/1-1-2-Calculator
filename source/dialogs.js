@@ -4,6 +4,10 @@
     "roundingWarning": {
       caption: "Answer Rounded",
       message: "The maximum precision for this application is 21 places, therefore the answer was rounded."
+    },
+    "backspaceDescription": {
+      caption: "This is the backspace key",
+      message: "This button will remove the far right digit from the current line (excluding completed sums)."
     }
   };
 

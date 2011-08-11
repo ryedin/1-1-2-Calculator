@@ -35,7 +35,8 @@
         name: "ui",
         className: "calc-bg",
         kind: "Calc.UI",
-        onButtonClicked: "calcButtonClicked"
+        onButtonClicked: "calcButtonClicked",
+        onBackspaceClicked: "backspaceClicked"
       }, {
         name: "preferences",
         className: "calc-bg",
@@ -111,6 +112,10 @@
       if (calc.error) {
         Calc.dialogs.alert(calc.error);
       }
+    },
+    backspaceClicked: function() {
+      this.calcButtonClicked(this, {label: "backspace"});
+      Calc.dialogs.prefAlert("backspaceDescription");
     },
     fileOpened: function(sender, file) {
       var me = this;
